@@ -1,0 +1,73 @@
+{% extends 'home/base.html'%}{% load static%} {% block content %} 
+{% block css %}
+<style>
+  body
+
+h3{font-size: x-large; color:#4CAF50;;}
+#toast-container {
+    display: block;
+    position: fixed;
+    z-index: 10000;
+}
+
+</style>
+  {% endblock css %}
+  
+    <form method="POST">
+      {% csrf_token %}
+      <div class="container" style="margin-top: 50px;">
+        <div class="row">
+        <div class="section"></div>
+       <main>
+        <center>
+         <div class="container">
+            <div  class="z-depth-3 y-depth-3 x-depth-3 grey green-text lighten-4 row" style="display: inline-block; padding: 30px 40px 0px 40px; border: 1px; margin-top: 100px solid #EEE; width: 70%;">
+              <h3><b>Signup Form </b></h3>
+              <div style="text-align: left; color: black;">
+              <div class="input-field">
+               {{ form.username.label }}
+               {{ form.username }}
+              </div>    
+              <div class="input-field">
+                {{ form.email.label }}   
+                {{ form.email }}
+              </div>    
+              <div class="input-field">
+                {{ form.password1.label }}
+                {{ form.password1 }}
+              </div>    
+              <div class="input-field">
+                {{ form.password2.label }}
+                {{ form.password2 }}
+              </div>    
+                
+            </div>
+              <center>
+                <div class="form-field">
+                    <button class="btn-large waves-effect waves-dark add-btn" style="background-color: #4CAF50;">Signup</button>
+                  </div><br>
+            </center>
+            {{ form.errors }}
+            <p class="text-center">Already have an account, <a href="/login" style="font-size: 14; color:#0645AD;">login</a> instead.</p>
+              </div>               
+                <br/>
+               
+            </div>
+          </center>
+          </main>  </div>
+    
+      
+        </div>
+      </form>
+    
+ 
+
+{% block javascript %}    
+{% if messages %}
+{% for message in messages %}
+  <script>M.toast({html: "{{message}}", classes: 'green rounded', displayLength:2000});</script>
+{% endfor %}
+{% endif %}
+
+{% endblock javascript %}
+{% endblock %}

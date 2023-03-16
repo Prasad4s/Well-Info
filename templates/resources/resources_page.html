@@ -1,0 +1,19 @@
+{% extends 'home/base.html'%}
+{% load wagtailcore_tags %}
+{% block extra_css%}
+<style>
+    iframe,img{
+        width: 400px;
+        height: 300px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+    {% for block in page.content %}
+        {% include_block block %} 
+    {% endfor %} 
+</div>
+   
+
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'home/base.html'%}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Form</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    label {
+      font-weight: bold;
+      color: black;
+    }
+    .form-control {
+      max-width: 400px;
+      color: black;
+    }
+    .form-container {
+      margin: 0 auto;
+      max-width: 600px;
+    }
+    .form-submit {
+      margin-top: 20px;
+    }
+    .form-title {
+        font-weight: bold;
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+    
+
+  <div class="container mt-5 form-container">
+    <form method="post">
+      {% csrf_token %}
+      <h4 class="form-title">Edit well </h4>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" class="form-control" value="{{ well_picture.name }}" required>
+      </div>
+      <div class="form-group">
+        <label for="well_nm">Name of the well:</label>
+        <input type="text" name="well_nm" id="well_nm" class="form-control" value="{{ well_picture.well_nm }}"  required>
+      </div>
+      <div class="form-group">
+        <label for="radius">Radius:</label>
+        <input type="number" name="radius" id="radius" class="form-control" value="{{ well_picture.radius }}"  required>
+      </div>
+      <div class="form-group">
+        <label for="depth">Depth:</label>
+        <input type="number" name="depth" id="depth" class="form-control" value="{{ well_picture.depth }}"  required>
+      </div>
+      <div class="form-group">
+        <label for="level">Water Level:</label>
+        <input type="number" name="level" id="level" class="form-control" value="{{ well_picture.level }}"  required>
+      </div>
+      <div class="form-group">
+        <label for="village">Village:</label>
+        <input type="text" name="village" id="village" class="form-control"  value="{{ well_picture.village }}" required>
+      </div>
+      <div class="form-group">
+        <label for="district">District:</label>
+        <input type="text" name="district" id="district" class="form-control"  value="{{ well_picture.district }}" required>
+      </div>
+      <div class="form-group">
+        <label for="state">State:</label>
+        <input type="text" name="state" id="state" class="form-control" value="{{ well_picture.state }}" required>
+      </div>
+      <div class="form-group">
+        <label for="pincode">Pincode:</label>
+        <input type="text" name="pincode" id="pincode" class="form-control"  value="{{ well_picture.pincode }}" required>
+      </div>
+      <div class="form-group">
+        <label for="lat">Latitude:</label>
+        <input type="text" name="lat" id="lat" readonly="readonly" class="form-control" value="{{ well_picture.lat }}" required>
+    </div>
+    <div class="form-group">
+        <label for="lng">Longitude:</label>
+        <input type="text" name="lng" id="lng" readonly="readonly" class="form-control" value="{{ well_picture.lng }}" required>
+    </div>
+      <div class="form-group">
+        <label for="date">Date:</label>
+        <input type="text" name="date" id="date" class="form-control datepicker" value="{{ well_picture.date|date:'Y-m-d'  }}" required>
+      {% comment %} value="{{ well_picture.date }}" {% endcomment %}
+    </div >
+    <div class="form-group">
+      <label for="water_quality">Quality of water:</label>
+      <select name="water_quality" id="water_quality" class="form-control" required>
+        <option value="">--Select--</option>
+        <option value="Drinking" {% if well_picture.water_quality == 'Drinking' %} selected {% endif %}>Drinking</option>
+        <option value="Agriculture" {% if well_picture.water_quality == 'Agriculture' %} selected {% endif %}>Agriculture</option>
+      </select>
+    </div>
+    <div class="form-update">
+    <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+    <br>
+    <br>
+    </form>
+  </div>
+  {% if form.errors %}
+<div class="alert alert-danger">
+  <ul>
+    {% for field, errors in form.errors.items %}
+    {% for error in errors %}
+    <li>{{ field }}: {{ error }}</li>
+    {% endfor %}
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+<script>
+  $(function() {
+    $(".datepicker").datepicker({dateFormat: "dd-mm-yy"}); // set the desired date format
+  });
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+{% endblock content %}

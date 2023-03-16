@@ -1,0 +1,79 @@
+{% extends 'home/base.html'%}
+
+{% block content %}
+{% comment %} <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">  {% endcomment %}
+<section class="container">
+    <div class="row justify-content-around mt-10">
+        <div class="col-sm-8 border">
+            <h4 style="text-align:center">Entered Well Details</h4>
+        </div>
+    </div>
+
+    <div class="row justify-content-around mt-10">
+        <div class="col-sm-8 border">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Well Name</th>
+                        <th scope="col">Radius</th>
+                        <th scope="col">Depth</th>
+                        <th scope="col">Level</th>
+                        <th scope="col">Village</th>
+                        <th scope="col">District</th>
+                        <th scope="col">State</th>
+                        <th scope="col">Pincode</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Water Quality</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pic in uploaded_pics %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ pic.name }}</td>
+                        <td>{{ pic.well_nm }}</td>
+                        <td>{{ pic.radius }}</td>
+                        <td>{{ pic.depth }}</td>
+                        <td>{{ pic.level }}</td>
+                        <td>{{ pic.village }}</td>
+                        <td>{{ pic.district }}</td>
+                        <td>{{ pic.state }}</td>
+                        <td>{{ pic.pincode }}</td>
+                        <td>{{ pic.date }}</td>
+                        <td>{{ pic.water_quality }}</td>
+                        <td>
+                            <a href="{% url 'edit_well_picture' pic.id %}" class="btn btn-primary btn-sm">Edit</a>
+                            {% comment %} {% url 'edit_well_picture' pic.id %} {% endcomment %}
+                            {% comment %} <a class="btn btn-danger" href="/delete/{{pic.id}}">Delete</a>                             {% endcomment %}
+                        </td>                      
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    {% comment %} <script>
+        function deletePic(id) {
+            // Send a DELETE request to the server to delete the picture with the given ID
+            fetch('/delete-pic/' + id, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Reload the page to update the table
+                    location.reload();
+                }
+            });
+        }
+    </script> {% endcomment %}
+
+
+
+</section>
+
+{% endblock content %}

@@ -1,0 +1,107 @@
+{% extends 'home/base.html'%}
+
+{% block content %}
+<style>
+    input::placeholder {
+        color: black;
+      }
+</style>
+<section class="container">
+    <div class="row justify-content-around mt-10">
+        <div class="col-sm-8 border">
+            <h4 style="text-align:center">Water Level</h4>
+        </div>
+    </div>
+    <div class="row justify-content-between">
+        <div class="col-sm-6">
+            <!-- Search form -->
+            <form method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="Search by well name!" style="color:black;" value="{{ request.GET.search }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit" onclick="return validateSearch()">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <!-- Clear button -->
+            {% if request.GET.search %}
+            <form method="GET">
+                <div class="input-group">
+                    <div class="input-group-append">
+                        <button class="btn btn-secondary" type="button" onclick="location.href='{{ request.path }}'">Clear</button>
+                    </div>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="row justify-content-around">
+        <div style="display: flex; justify-content:space-between;">
+            <!-- Button to redirect to graph_well page -->
+            <button class="btn btn-primary" onclick="location.href='{% url 'graph_well' %}'">Graph</button>  
+            <input type=button class='btn btn-primary' value="Print me!" onClick="javascript:window.print()">          
+        </div>
+        
+    </div>
+    {% if message %}
+    <div class="row justify-content-around mt-2">
+        <div class="col-sm-8 text-center">
+            <h5>{{ message }}</h5>
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="row justify-content-around mt-10">
+        <div class="col-sm-8 border">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Well Name</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Level (in meters)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for well in welldata %}
+                    <tr>
+                        <th scope="row">{{well.id}}</th>
+                        <td>{{well.well_nm}}</td>
+                        <td>{{well.date}}</td>
+                        <td>{{well.level}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+
+</section>
+<script>
+    function search() {
+        var input = document.querySelector('input[name="search"]');
+        if (input.value) {
+            window.location.href = '?search=' + encodeURIComponent(input.value);
+        }
+    }
+
+    function clearSearch() {
+        var input = document.querySelector('input[name="search"]');
+        input.value = '';
+    }
+    function validateSearch() {
+        var input = document.querySelector('input[name="search"]');
+        if (!input.value.trim()) {
+            alert("Please enter the well name");
+            return false;
+        }
+        return true;
+    }
+</script>
+{% endblock content %}

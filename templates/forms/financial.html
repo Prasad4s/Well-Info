@@ -1,0 +1,74 @@
+{% extends 'home/base.html' %}
+{% load bootstrap4 %}      
+{% bootstrap_css %}       
+{% bootstrap_javascript jquery='full' %}  
+{{ form.media }}            
+{% block content %}
+{% load static %} 
+<style>
+select{display: block;padding: 0px;} 
+
+</style>
+    <form  method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+    <div class="container">
+	  	<div class="section"></div>
+         <main>
+         <div class="container">
+         <div class="z-depth-3 y-depth-3 x-depth-3 grey  lighten-4 row" style="padding:20px;border: 1px;">
+         <h3 class="heading" style="text-align: center;"><b>Financial Expenses (for last one year)</b></h3>
+         <table border="1">
+          <thead>
+              <tr><td>Component</td>
+             <td>Expenses</td>
+         <td>Date of expense
+             (dd/mm/yy)</td></tr>
+          </thead> 
+          <tbody> 
+            <tr><td>{{ form.soilPrep.label }}</td>
+            <td>{{ form.soilPrep }}</td>
+          <td>{{ form.soilPrepDate }}</td></tr>
+
+          <tr><td>{{ form.fertilizers.label }}</td>
+            <td>{{ form.fertilizers }}</td>
+          <td>{{ form.fertilizersDate }}</td></tr>
+
+          <tr><td>{{ form.seeds.label }}</td>
+            <td>{{ form.seeds }}</td>
+          <td>{{ form.seedsDate }}</td></tr>
+
+          <tr><td>{{ form.cultTools.label }}</td>
+            <td>{{ form.cultTools }}</td>
+          <td>{{ form.cultToolsDate }}</td></tr>
+
+          <tr><td>{{ form.fence.label }}</td>
+            <td>{{ form.fence }}</td>
+          <td>{{ form.fenceDate }}</td></tr>
+
+          <tr><td>{{ form.transportation.label }}</td>
+            <td>{{ form.transportation }}</td>
+          <td>{{ form.transportaionDate }}</td></tr>
+
+          <tr><td>{{ form.labor.label }}</td>
+            <td>{{ form.labor }}</td>
+          <td>{{ form.laborDate }}</td></tr>
+
+          <tr><td>{{ form.irrigation.label }}</td>
+            <td>{{ form.irrigation }}</td>
+          <td>{{ form.irrigationDate }}</td></tr>
+
+          <tr><td>{{ form.miscellaneous.label }}</td>
+            <td>{{ form.miscellaneous }}</td>
+          <td>{{ form.miscellaneousDate }}</td></tr>
+          </tbody> 
+        </br> </table>
+          <div class="form-field" style="margin-bottom: 10px ;text-align:center;">
+              <button class="login-btn btn-large waves-effect waves-dark">Submit</button>
+          </div>
+          </div>
+        </main>
+     </div>
+     </div>
+    </form>    
+{% endblock %}
+ 

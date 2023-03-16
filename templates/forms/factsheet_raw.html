@@ -1,0 +1,333 @@
+{% extends 'home/base.html' %}
+{% block content %}
+{% load static %} 
+<style>
+select{display: block;padding: 0px;} 
+
+</style>
+    <form  method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+    <div class="container">
+	<div class="row">
+	<div class="section"></div>
+   <main>
+     <div class="container">
+    <div  class="z-depth-3 y-depth-3 x-depth-3 grey  lighten-4 row" style="padding:20px;border: 1px;">
+        
+        
+          <h3 class="heading" style="text-align: center;"><b>Poshan Vatika factsheet</b></h3>
+      
+          <div class='row' >
+             
+            <div class='input-field col s12'>
+              <span style="float: left; color: black; height: 3rem;">Location of Nutri-garden/ Poshan Vatika</span>
+              <select name = "nutrigardenlocation">
+                <option value="" selected>Choose Your Option</option>
+                <option value="Anganwadi Centre">Anganwadi Centre</option>
+                <option value="Household">Household (ICDS beneficiary)</option>
+                <option value="Community">Community</option>
+                <option value="School">School</option>
+                <option value="Others">Others</option>
+              </select>
+              </div>
+           
+          </div>
+            <div class='row' >
+              <div class='input-field col s12'>
+                <span style="float: left; color: black;">State</span>
+                <input type="text" class="fieldlabels" placeholder="State" name="State" id="State "> 
+              </div>
+             
+            </div>
+             
+            <div class='row' >
+              <div class='input-field col s12'>
+                <span style="float: left; color: black;">District : </span>
+                <input type="text" class="fieldlabels" placeholder="District" name="District" id="District "> 
+              </div> 
+            </div>
+
+            <div class='row' >
+              <div class='input-field col s12'>
+                <span style="float: left; color: black;">ICDS Project</span>
+                <input type="text" class="fieldlabels" placeholder="ICDS Project" name="ICDS" id="ICDS "> 
+              </div> 
+            </div>
+
+            <div class='row' >
+              <div class='input-field col s12'>
+                <span style="float: left; color: black;">Sector</span>
+                <input type="text" class="fieldlabels" placeholder="Sector" name="Sector" id="Sector"> 
+              </div> 
+            </div>
+
+            <div class='row' >
+              <div class='input-field col s12'>
+                <span style="float: left; color: black;">Village/Tola</span>
+                <input type="text" class="fieldlabels" placeholder="Village/Tola" name="Village" id="Village "> 
+              </div> 
+            </div>
+
+            <div class='row' >
+              <div class='input-field col s12'>
+                <span style="float: left; color: black;">Anganwadi Centre</span>
+                <input type="text" class="fieldlabels" placeholder="centre" name="centre" id="centre "> 
+              </div> 
+            </div>
+            
+            <div class='row' >
+              <div class='input-field col s12'>
+                <span style="float: left; color: black; height: 3rem;">If it is household (ICDS beneficiary) Nutri-garden then what is the family size of the
+                  household</span>
+                <select name = "familysize">
+                  <option value="" selected>Choose Your Option</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="more">More than 6</option>
+                </select>
+                </div></div>
+
+                <div class='row'>
+                  <div class='input-field col s12'>
+                   <span style="float: left; color: black;">Type of vegetable/fruit Nutri-garden shed</span></br></br>
+                   <p style="display: inline;"><label><input class="with-gap" name="type" type="radio" id = "open field"value = "Open Field" /><span>Open Field</span></label></p>
+                    <p style="display: inline;"><label><input  class="with-gap" name="type" type="radio" id = "polyhouse" value = "Poly House" ><span>Poly House</span></label></p>
+                    <p style="display: inline;"><label><input  class="with-gap" name="type" type="radio" id = "shednet" value = "Shed Net" ><span>Shed Net</span></label></p>
+                  </div>
+                </div>
+
+                <div class='row'>
+                  <div class='input-field col s12'>
+                   <span style="float: left; color: black;">Nutri-garden patterns employed</span></br></br>
+                   <p style="display: inline;"><label><input class="with-gap" name="patt" type="radio" id = "Circular"value = "Circular" /><span>Circular</span></label></p>
+                    <p style="display: inline;"><label><input  class="with-gap" name="patt" type="radio" id = "Rectangular" value = "Rectangular" ><span>Rectangular/Square</span></label></p>
+                    <p style="display: inline;"><label><input  class="with-gap" name="patt" type="radio" id = "Other" value = "Other" ><span>Other</span></label></p>
+                  </div>
+                </div>
+
+                <div class='row' >
+                  <div class='input-field col s12'>
+                    <span style="float: left; color: black; height: 3rem;">Consumption category of Nutri-garden</span>
+                    <select name = "ConsumptionCateg">
+                      <option value="" selected>Choose Your Option</option>
+                      <option value="self">Only self-consumption (includes sharing with neighbors)</option>
+                      <option value="sellSurplus">Selling surplus</option>
+                      <option value="sellValueadding">Selling surplus with value addition</option>
+                    </select>
+                    </div></div>
+
+              <div class='row' >
+              <div class='input-field col s12'>
+                <span style="float: left; color: black; height: 3rem;">Type of Nutri-garden activity</span>
+                <select name = "nutrigardentype">
+                  <option value="" selected>Choose Your Option</option>
+                  <option value="Fruits/ seeds/ vegetables">Fruits/ seeds/ vegetables</option>
+                  <option value="Vegetarian + Poultry">Vegetarian + Poultry</option>
+                  <option value="Vegetarian + Poultry + Others">Vegetarian + Poultry + Others</option>
+                </select>
+                </div>
+                </div>
+
+                <div class='row' >
+                  <div class='input-field col s12'>
+                    <span style="float: left; color: black; height: 3rem;">Cultivation Technique</span>
+                    <select name = "cultivationTechnique">
+                      <option value="" selected>Choose Your Option</option>
+                      <option value="raised bed">Raised Bed</option>
+                      <option value="circular bed">Circular Bed</option>
+                      <option value="container cultivation">Container cultivation</option>
+                      <option value="Vertical gardening">Vertical Gardening</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    </div></div>
+
+                  
+
+                <div class='row'>
+                  <div class='input-field col s12'>
+                   <span style="float: left; color: black;">Type of seed</span></br></br>
+                   <p style="display: inline;"><label><input class="with-gap" name="seedtype" type="radio" id = "Indigenous"value = "Indigenous" /><span>Indigenous</span></label></p>
+                    <p style="display: inline;"><label><input  class="with-gap" name="seedtype" type="radio" id = "Hybrid" value = "Hybrid" ><span>Hybrid</span></label></p>
+                  </div>
+                </div>
+
+                <div class='row' >
+                  <div class='input-field col s12'>
+                    <span style="float: left; color: black; height: 3rem;">Source of seed</span>
+                    <select name = "seedsource">
+                      <option value="" selected>Choose Your Option</option>
+                      <option value="Market">Market</option>
+                      <option value="Household">Household</option>
+                      <option value="Seed bank">Seed Bank</option>
+                      <option value="GovtDept">Government Department (Horticulture, KVK etc.)</option>
+                      <option value="NGO">NGOs/CSOs</option>
+                      <option value="Others">Others</option>
+                    </select>
+                    </div></div>
+
+                    <div class='row' >
+                      <div class='input-field col s12'>
+                        <span style="float: left; color: black; height: 3rem;">If seed bank then location of seed bank</span>
+                        <select name = "seedbanklocation">
+                          <option value="" selected>Choose Your Option</option>
+                          <option value="Village">Village</option>
+                          <option value="Panchayat">Panchayat</option>
+                          <option value="Block">Block</option>
+                          <option value="Others">Others</option>
+                        </select>
+                        </div></div>
+
+                    <div class='row' >
+                      <div class='input-field col s12'>
+                         <span style="float: left; color: black; height: 3rem;">Type of fertilizer</span>
+                         <select name = "ferilizertype">
+                         <option value="" selected>Choose Your Option</option>
+                         <option value="Chemical">Chemical</option>
+                         <option value="Organic manure">Organic Manure</option>
+                         <option value="Natural">Natural</option>
+                         </select>
+                     </div></div>
+                    
+                        <div class='row' >
+                          <div class='input-field col s12'>
+                            <span style="float: left; color: black; height: 3rem;">Source of fertilizer</span>
+                            <select name = "fertilizer source">
+                              <option value="" selected>Choose Your Option</option>
+                              <option value="HouseholdVermicompost">Household Vermicompost</option>
+                              <option value="Market">Market</option>
+                              <option value="Livestock">Livestock</option>
+                              <option value="Government">Government</option>
+                            </select>
+                            </div></div>
+
+                        <div class='row' >
+                              <div class='input-field col s12'>
+                                <span style="float: left; color: black; height: 3rem;">If vermicompost, then which grade</span>
+                                <select name = "vermicompostgrade">
+                                  <option value="" selected>Choose Your Option</option>
+                                  <option value="Agnihotra">Agnihotra</option>
+                                  <option value="Jeevamrut">Jeevamrut</option>
+                                  <option value="Steramil">Steramil</option>
+                                  <option value="Neem">Neem</option>
+                                  <option value="Humic">Humic</option>
+                                  <option value="Others">Others</option>
+                                </select>
+                        </div></div>
+
+                        <div class='row' >
+                          <div class='input-field col s12'>
+                            <span style="float: left; color: black; height: 3rem;">Pest Management</span>
+                            <select name = "pestmanagement">
+                              <option value="" selected>Choose Your Option</option>
+                              <option value="Healthy seedling production">Healthy seedling production</option>
+                              <option value="Infected shoot clipping">Infected shoot clipping</option>
+                              <option value="Pheromone trap">Pheromone trap</option>
+                              <option value="Minimal use of pesticides">Minimal use of pesticides</option>
+                              <option value="Others">Others</option>
+                        </select>
+                        </div></div>
+            
+                        <div class='row' >
+                          <div class='input-field col s12'>
+                            <span style="float: left; color: black; height: 3rem;">Types of Fences</span>
+                            <select name = "fence type">
+                              <option value="" selected>Choose Your Option</option>
+                              <option value="Natural">Natural (mud, bamboo, trees, shrubs, tree leaves etc.)</option>
+                              <option value="metal Fencing">Metal/ wire Fencing</option>
+                              <option value="cement wall">Cement/ brick wall</option>
+                              <option value="Metal/ wire Fencing"></option>
+                              <option value="cloth">Any cloth type material/ tarpaulin</option>
+                              <option value="others">Others</option>
+                            </select>
+                            </div></div>
+
+                            <div class='row' >
+                              <div class='input-field col s12'>
+                                <span style="float: left; color: black; height: 3rem;">Irrigation Method</span>
+                                <select name = "irrigationmethod">
+                                  <option value="" selected>Choose Your Option</option>
+                                  <option value="Drip">Drip</option>
+                                  <option value="Flood">Flood</option>
+                                  <option value="Watering by post">Watering by post</option>
+                                  <option value="Rain-fed">Rain-fed</option>
+                                  <option value="Others">Others</option>
+                                </select>
+                                </div></div>
+                
+
+                           <div class='row' >
+                            <div class='input-field col s12'>
+                            <span style="float: left; color: black; height: 3rem;">Water source</span>
+                            <select name = "resourcewater">
+                            <option value="" selected>Choose Your Option</option>
+                            <option value="Pond">Pond</option>
+                            <option value="River">River</option>
+                            <option value="Tube Well">Tube Well</option>
+                            <option value="Well">Well</option>
+                            <option value="Rain">Rain</option>
+                            <option value="Lake">Lake</option>
+                            <option value="Pipe water">Pipe water</option>
+                            <option value="Others">Others</option>
+                            </select>
+                           </div></div>
+
+                           <div class='row' >
+                            <div class='input-field col s12'>
+                            <span style="float: left; color: black; height: 3rem;">Resources Leveraged for establishing the nutri-garden</span>
+                            <select name = "leveragedesource">
+                            <option value="" selected>Choose Your Option </option>
+                            <option value="Self">Self</option>
+                            <option value="Government Scheme">Government Scheme</option>
+                            <option value="NGOs/CSOs">NGOs/CSOs</option>
+                            <option value="Others">Others</option>
+                            </select>
+                           </div></div>
+
+                           <div class='row' >
+                            <div class='input-field col s12'>
+                            <span style="float: left; color: black; height: 3rem;">If government scheme, then name it</span>
+                            <select name = "govtScheme">
+                            <option value="" selected>Choose Your Option </option>
+                            <option value="MGNREGA">MGNREGA</option>
+                            <option value="ICDS">ICDS</option>
+                            <option value="Education">Education</option>
+                            <option value="Agriculture">Agriculture</option>
+                            <option value="Panchayat">Panchayat</option>
+                            <option value="Others">Others</option>
+                            </select>
+                           </div></div>
+                            
+                      <div class='row'>
+                        <div class='input-field col s12'>
+                        <span style="float: left; color: black;">Is there any provision for storage of produce</span></br></br>
+                        <p style="display: inline;"><label><input class="with-gap" name="prov" type="radio" id = "Indigenous"value = "provisionYes" /><span>Yes</span></label></p>
+                          <p style="display: inline;"><label><input  class="with-gap" name="prov" type="radio" id = "Hybrid" value = "provisionNo" ><span>No</span></label></p>
+                        </div>
+                      </div>
+
+                      <div class='row'>
+                        <div class='input-field col s12'>
+                        <span style="float: left; color: black;">If Yes, then where</span></br></br>
+                        <p style="display: inline;"><label><input class="with-gap" name="place" type="radio" id = "cold"value = "coldstorage" /><span>Cold Storage</span></label></p>
+                          <p style="display: inline;"><label><input  class="with-gap" name="place" type="radio" id = "open" value = "openstorage" ><span>Open Storage</span></label></p>
+                          <p style="display:inline;"><label><input class="with-gap" name="place" type="radio" id="Others" value="Others"><span>Others</span></label></p>
+                        </div>
+                      </div>       
+            <br/>
+            <div class="form-field" style="margin-bottom: 10px ;text-align:center;">
+              <button class="login-btn btn-large waves-effect waves-dark">Submit</button>
+          </div>
+                </div>
+     
+        </div>
+       </div>
+      </main>
+
+  
+	</div>
+</div>
+        </form>
+
+{% endblock %}

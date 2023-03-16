@@ -1,0 +1,272 @@
+{% extends 'home/base.html'%}
+{% load static%}
+{% block content %}
+<head>
+  <link type="text/css" href="{% static 'home/css/style.css' %}" rel="stylesheet">
+  <style>
+    span{
+      float: left;
+       color: black;
+    }
+  </style>
+</head>
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<div class="container">
+<div class="row">
+<div class="section"></div>
+<main>
+ <div class="container">
+    <div  class="z-depth-3 y-depth-3 x-depth-3 grey  lighten-4 row" style="padding:20px;border: 1px;">
+    
+      <h3 class="heading" style="text-align: center; color: #4CAF50;"><b>Basic Information </b></h3>
+      <div class='row'>
+          <div class='input-field col s12'>
+           <span >Name of Organization : </span>
+           <input type="text" class="fieldlabels" placeholder=" Organization Name" name="organization" id="organization" required>
+            
+          </div>
+        </div>
+        <div class='row' >
+          <div class='input-field col s12'>
+            <span>Name of District : </span>
+            <input type="text" class="fieldlabels" placeholder=" District Name" name="district" id="district " required> 
+          </div>
+         
+        </div>
+        <div class='row' >
+          <div class='input-field col s12'>
+            <span>Name of Village : </span>
+            <input type="text" class="fieldlabels" placeholder=" District Name"  name = "village" id = "village" required></td>
+          </div>
+         
+        </div>
+
+        <div class='row' >
+          <div class='input-field col s12'>
+            <span>What standard size of Nutri-Gardens are promoted by your Organization? </span><br>
+            <p><label><input class="with-gap" type="checkbox" id="one_to_fivehundred" name="one_to_fivehundred" value="yes" ><span>100 to 500 sq.ft model</span></label></p><br>
+            <p><label><input class="with-gap" type="checkbox" id="fivehundred_to_1000" name="fivehundred_to_1000" value="yes"><span>500 to 1000 sq.ft model</span></label></p> <br> 
+            <p><label><input class="with-gap" type="checkbox" id="one_two_thousand" name="one_two_thousand" value="yes"><span>1000 to 2000 sq.ft model</span></label></p><br>
+            <p><label><input class="with-gap" type="checkbox" id="two_four_thousand" name="two_four_thousand" value="yes"><span>2000 to 4000 sq.ft model</span></label></p><br>
+            <p><label><input class="with-gap" type="checkbox" id="more4000" name="more4000" value="yes"><span>More than 4000 sq.ft model</span></label></p> <br>
+          </div>
+        </div>
+
+        <div class='row' >
+          <div class='input-field col s12'>
+            <span>Please select the components of the Nutri-Garden</span><br>
+            <p><label><input class="with-gap" type="checkbox" id="Vegetable" name="vegetable" value="yes"><span>Vegetable Nutri-Garden</span></label></p><br>
+            <p><label><input class="with-gap" type="checkbox" id="Poultry" name="poultry" value="yes"><span>Poultry</span></label></p> <br> 
+            <p><label><input class="with-gap" type="checkbox" id="Goat" name="goat" value="Goat yes"><span>Goat farming</span></label></p><br>
+            <p><label><input class="with-gap" type="checkbox" id="Fisheries" name="fisheries" value="yes"><span>Fisheries</span></label></p><br>
+            <p><label><input class="with-gap" type="checkbox" id="Others" name="others" value="yes"><span>Others</span></label></p> <br>
+          </div>
+        </div>
+
+        <div class='row' >
+          <div class='input-field col s8'>
+            <span> Do the beneficiaries of Nutri-Garden sell the surplus from Nutri-Garden? </span><br>
+            <p><label><input class="with-gap" name="surplus" type="radio" value="yes" id = "chkdyes"/><span>Yes</span></label> </p>
+            <p><label><input  class="with-gap" name="surplus" type="radio" value="no" ><span>No</span></label></p>
+
+            <div id="surplusyes" style="display:none" class="row" >
+              <div class='input-field col s10'>
+                <span>If yes, then What is the average monthly income from a Nutri-Garden?</span></br>
+                <p><label><input class="with-gap" name="income" type="radio" value="Less than 1000" /><span>Less than 1000 Rs/month</span></label> </p><br>
+                <p><label><input  class="with-gap" name="income" type="radio" value="1000-2500" ><span>1000 to 2500 Rs/month</span></label></p><br>
+                <p><label><input class="with-gap" name="income" type="radio" value="2500-5000"/><span>2500-5000 Rs/month</span></label> </p><br>
+                <p><label><input  class="with-gap" name="income" type="radio" value="More than 5000" ><span>More than 5000 Rs/month</span></label></p><br>
+              </div>  
+            </div>
+          </div>
+        </div>
+
+        <div class='row' >
+          <div class='input-field col s8'>
+            <span> Is there any Farmer Producers Company for beneficiaries of your Nutri-Garden? </span><br>
+            <p><label><input class="with-gap" name="prodCompany" type="radio" value="yes" id = "chkyes"/><span>Yes</span></label> </p>
+            <p><label><input  class="with-gap" name="prodCompany" type="radio" value="no" ><span>No</span></label></p>
+
+            <div id="yesComp" style="display:none" class="row" >
+              <div class='input-field col s10'>
+                <span style="color: black;">If yes then, the number of farmers in the company?</span></br>
+                <input type="number" class="fieldlabels" name = "farmernum" id = "farmernum">
+              </div>  
+            </div>
+          </div>
+        </div>
+
+        <div class='row' >
+          <div class='input-field col s12'>
+            <span>Describe in one sentence any innovative method used in your Nutri-Garden</span>
+            <input type="text" class="fieldlabels" name = "innov_method" id = "innov_method">
+          </div>
+
+
+        <div class='row' >
+          <div class='input-field col s8'>
+            <span> Are you an Anemia Free India Forum (AFIF) partner ? </span><br>
+            <p><label><input class="with-gap" name="afif" type="radio" value="yes" /><span>Yes</span></label> </p>
+
+            <p><label><input  class="with-gap" name="afif" type="radio" value="no" id = "chkno"><span>No</span></label></p>
+
+            <div id="text" style="display:none" class="row" >
+              <div class='input-field col s10'>
+                <span>Would you like to be a part of AFIF? </span></br>
+                <p><label><input class="with-gap" name="ifAFIF" type="radio" id = "afifyes" value="yes"/><span>Yes</span></label></p>
+                <p><label><input class="with-gap" name="ifAFIF" type="radio" value="no"/><span>No</span></label></p>
+              </div>
+                
+              </div>
+                <div id="afiftext" style="display:none" >
+                  <p>Contact <a href="https://www.sahayaktrust.org/" target="blank" style="font-size:15px;">Sahayak trust</a>  and be part of AFIF</p>
+                </div>
+          </div>
+         
+        </div>
+        <div class='row' >
+          <div class='input-field col s12'>
+            <span> How many villages your organization has been covering? </span>
+            <input type="number" class="fieldlabels" placeholder="Village Covered" name = "covervillage" id = "covervillage" required> 
+          </div>
+         
+        </div>
+        <div class='row' >
+          <div class='input-field col s12'>
+            <span> In average, How many households in a village ?</span>
+            <input type="number" class="fieldlabels" placeholder="Average Household" name = "averagehousehold" id = "averagehousehold" required>
+          </div>
+         
+        </div>
+        <div class='row' >
+          <div class='input-field col s12'>
+            <span> How many Self Help Groups (SHGs) have been working with?</span>
+            <input type="number" class="fieldlabels" placeholder=" " name = "shg" id = "shg" required>
+          </div>
+         
+        </div>
+        <div class='row' >
+        <div class='input-field col s12'>
+          <span>Latitude : </span>
+        <input id="lat" type="text" name="lat" readonly="readonly" required>
+        </div>
+        </div>
+
+        <div class='row' >
+        <div class='input-field col s12'>
+          <span>Longitude : </span>
+          <input id="lng" type="text" name="lng" readonly="readonly" required>
+        </div>
+      </div>
+
+        <a id="location-btn" class="waves-effect waves-light btn-small" style=" background-color: #4CAF50; visibility: hidden;">Get Location</a>
+  
+            <div class="preloader-wrapper small active" id="location-loader">
+              <div class="spinner-layer spinner-green-only">
+                <div class="circle-clipper left">
+                  <div class="circle"></div>
+                </div><div class="gap-patch">
+                  <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                  <div class="circle"></div>
+                </div>
+              </div>
+            </div>
+
+<div class="input-field center">
+  <button class="btn-small" type="submit" name="action" style=" background-color: #4CAF50;">Submit</button>
+</div>
+    </div>
+   </div>
+  </main>
+
+
+</div>
+</div>   
+</form>
+<script>
+  window.onload = function(){
+document.getElementById('location-btn').click();
+}
+</script>
+
+<script>
+
+  $(function() {
+     $("input[name='afif']").click(function() {
+       if ($("#chkno").is(":checked")) {
+         $("#text").show();
+       } else {
+         $("#text").hide();
+       }
+     });
+   });
+
+   $(function() {
+     $("input[name='ifAFIF']").click(function() {
+       if ($("#afifyes").is(":checked")) {
+         $("#afiftext").show();
+       } else {
+         $("#afiftext").hide();
+       }
+     });
+   });
+
+   $(function() {
+     $("input[name='prodCompany']").click(function() {
+       if ($("#chkyes").is(":checked")) {
+         $("#yesComp").show();
+       } else {
+         $("#yesComp").hide();
+       }
+     });
+   });
+
+   $(function() {
+     $("input[name='surplus']").click(function() {
+       if ($("#chkdyes").is(":checked")) {
+         $("#surplusyes").show();
+       } else {
+         $("#surplusyes").hide();
+       }
+     });
+   });
+  </script>
+{% endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
