@@ -1,0 +1,224 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  
+    <link rel="stylesheet" href="{% static 'new/footer.css' %}" >
+    <link rel="stylesheet" href="{% static 'new/leaflet.css' %}" >
+    <link rel="stylesheet" href="{% static 'new/plugins/L.Control.Pan.css' %}">
+    <link rel="stylesheet" href="{% static 'new/plugins/L.Control.Zoomslider.css' %}">
+    <link rel="stylesheet" href="{% static 'new/plugins/L.Control.MousePosition.css' %}">
+    <link rel="stylesheet" href="{% static 'new/plugins/L.Control.Sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'new/plugins/Leaflet.PolylineMeasure.css' %}">
+    <link rel="stylesheet" href="{% static 'new/plugins/easy-button.css' %}">
+    <link rel="stylesheet" href="{% static 'new/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'new/css/mycss.css' %}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{% static 'new/front.css' %}">
+
+    <script src="{% static 'new/leaflet-src.js' %}" ></script>
+    <!-- <script src="src/jquery-3.2.0.min.js"></script> -->
+    <script src="{% static 'new/plugins/L.Control.Pan.js' %}" ></script>
+    <script src="{% static 'new/plugins/L.Control.Zoomslider.js' %}" ></script>
+    <script src="{% static 'new/plugins/L.Control.MousePosition.js' %}"></script>
+    <script src="{% static 'new/plugins/L.Control.Sidebar.js' %}"></script>
+    <script src="{% static 'new/plugins/Leaflet.PolylineMeasure.js' %}"></script>
+    <script src="{% static 'new/plugins/easy-button.js' %}"></script>
+    <script src="{% static 'new/plugins/leaflet-providers.js' %}"></script>
+    <script src="{% static 'new/plugins/leaflet-opencage/src/js/L.Control.OpenCageSearch.js' %}"></script>
+    <!-- <script src="{% static 'new/app.js' %}"></script> -->
+    <!-- <link rel="stylesheet" type="leaflet.wms.js" href="{% static 'new/css/component.css' %}"  /> -->
+    <link rel="stylesheet" href="{% static 'new/mystyle.css' %}">
+    <link rel= 'stylesheet' href="{% static 'new/css/component.css' %}">
+    <script src="{% static 'new/plugins/leaflet.ajax.min.js' %}" ></script>
+    <script src="{% static 'new/js/modernizr-custom.js' %}" ></script>
+    <script src="{% static 'new/leaflet.wms.js' %}" ></script>
+
+    <script src="{% static 'new/js/classie.js' %}"></script>
+    <!-- <script src="js/dummydata.js"></script> -->
+    <!-- <script src="src/js/main.js"></script> -->
+    <script src="{% static 'new/js/main.js' %}"></script>
+    <script src="{% static 'new/myscript.js' %}"></script>
+
+
+    <!-- scripts for spinner -->
+
+    <script src="{% static 'new/spin/spin.js'%}" ></script>
+    <script src="{% static 'new/leaflet.spin.min.js' %}"></script>
+
+<!-- font-awesome -->
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+<!-- script for leaflet font awesome-->
+<script src = "{% static 'new/leaflet.awesome-markers.js' %}"></script>
+<link rel="stylesheet" href="{% static 'new/leaflet.awesome-markers.css' %}">
+
+
+
+<!-- leaflet-messagebox-->
+<script src = "{% static 'new/leaflet-messagebox.js' %}"></script>
+<link rel="stylesheet" href="{% static 'new/leaflet-messagebox.css' %}">
+
+ <!-- leaflet-measure-->
+<script src = "{% static 'new/leaflet_measure/leaflet.measure.js' %}"></script>
+<link rel="stylesheet" href="{% static 'new/leaflet_measure/leaflet.measure.css' %}">
+
+
+<!-- leaflet-search -->
+<script src = "{% static 'new/leaflet-search/leaflet-search.src.js' %}"></script>
+<link rel="stylesheet" href="{% static 'new/leaflet-search/leaflet-search.src.css' %}">
+
+
+<!-- leaflet minimap -->
+<script src = "{% static 'new/leaflet-minimap/Control.MiniMap.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'new/leaflet-minimap/Control.MiniMap.min.css' %}">
+ 
+
+
+<!-- leaflet lagend graphic -->
+
+<script src = "{% static 'new/leaflet-legend-graphics/leaflet.wmslegend.js' %}"></script>
+<link rel="stylesheet" href="{% static 'new/leaflet-legend-graphics/leaflet.wmslegend.css' %}">
+
+<!-- <link rel="stylesheet" href=""/>
+<script src="leaflet-legend-graphics/leaflet.wmslegend.js"></script> -->
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+</head>
+
+  <body>
+<style>
+body {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: 0;
+  overflow: hidden;
+}
+.full-height {
+  height: 100%;
+}
+
+.header {
+    height: 50px;
+}
+
+.mobileShow {display: none;}
+
+  /* Smartphone Portrait and Landscape */
+  @media only screen
+    and (min-device-width : 320px)
+    and (max-device-width : 480px){ 
+      .mobileShow {display: inline;}
+  }
+
+  .logo-img{
+    width: 300px !important;
+    height: 50px !important;
+  }
+
+  .project-title{
+    color: #000000;
+    font-size: 20px;
+    margin-right: 100px;
+    text-align: center;
+}
+
+
+.navbar{
+  border: red;
+}
+
+  </style>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#"> <img src="{% static 'new/images/logo-removebg.png' %}" alt="community-gis" class="logo-img"> </a>
+
+  <div class="project-title">HealthGIS<div style="font-size: x-small;">Source: Census 2011</div></div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item disable">
+        <p> <span class="sr-only">(current)</span></p>
+      </li>
+
+
+
+
+      <li class="nav-item active">
+          <a class="btn btn-secondary" href="https://ee.humanitarianresponse.info/x/#URXRVsvI" style="background-color: rgb(233,89,89, 0.508);">Volunteer Form</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <a class = 'btn btn-secondary' href="/" style="background-color: rgba(233, 89, 89, 0.508);">Home</a>
+      <a class = 'btn btn-secondary' href="/dashboard" style="background-color: rgb(233,89,89, 0.508);" >Themes</a>
+    </ul>
+
+  </div>
+</nav>
+
+
+
+
+
+   
+{% block content%}
+{% endblock %}
+
+                         
+<script>
+  
+  
+  
+  $("#closebutton").click(function(){
+  ctlSidebar.toggle();
+});
+ 
+  
+  
+  objBasemaps = {
+      "Open Street Maps": lyrOSM,
+      "Imagery":lyrImagery
+  };
+  
+  objOverlays = {
+  };
+  
+  // var ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(mymap);
+  var ctlSidebar = L.control.sidebar('side-bar').addTo(mymap);
+  // var ctlPan = L.control.pan().addTo(mymap);
+
+  var ctlEasybutton = L.easyButton('fa fa fa-bars', function(){
+      ctlSidebar.toggle(); 
+  }).addTo(mymap);
+  ctlSidebar.show();
+
+  var ctlZoomslider = L.control.zoomslider({position:'topright'}).addTo(mymap);
+  
+  ctlAttribute = L.control.attribution({position:'bottomleft'}).addTo(mymap);
+
+      
+</script>
+   
+
+  </body>
+</html>

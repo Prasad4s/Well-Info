@@ -4,11 +4,11 @@
 
 {% endblock %}
 
-{% block map %}
+{% block content %}
 <div id="mapid" style="width: 100%; height: 100%;"></div>
 
   <!-- Modal Structure -->
-  <div id="demo-modal" class="modal bottom-sheet"> 
+  <!-- <div id="demo-modal" class="modal bottom-sheet"> 
     <div id="content" class="modal-content"> 
     </div> 
     <div class="modal-footer">
@@ -23,7 +23,7 @@
   <div id="content1" class="modal-content"> 
   </div> 
   
-</div> 
+</div>  -->
 
 <script>
 
@@ -40,14 +40,9 @@
     const url = 'https://geoserver2.communitygis.net/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typename=geonode%3Aposhan_dummy&outputFormat=json&srs=EPSG%3A4326&srsName=EPSG%3A4326&access_token=3r7XCeWunHUOfoyqPxnUNt7XY7ZWHu'
     const url1 = 'https://geoserver2.communitygis.net/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typename=geonode%3AOrganization_wise_Compendium&outputFormat=json&srs=EPSG%3A4326&srsName=EPSG%3A4326&access_token=3r7XCeWunHUOfoyqPxnUNt7XY7ZWHu'
 
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-		maxZoom: 18,
-		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-		id: 'mapbox/streets-v11',
-		tileSize: 512,
-		zoomOffset: -1
-    }).addTo(mymap);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+}).addTo(mymap);
     
     var baseLayers = {
 		"Grayscale": grayscale,
@@ -233,4 +228,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
-{% endblock map%}
+{% endblock content%}
