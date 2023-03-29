@@ -197,6 +197,13 @@
     {% comment %} <li><a href="{% url 'viewVatikas'%}" class="waves-effect">View All PoshanVatikas</a></li> {% endcomment %}
     <li><a href="{% url 'well_info'%}" class="waves-effect">View Wells Data</a></li>
     <li><a href="{% url 'viewWells'%}" class="waves-effect" >View Wells</a></li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'form' %}">Student's Registration</a>
+    </li>
+    <!-- <li class="nav-item">
+      <a class="nav-link" href="{% url 'registerForm' %}">Student's Registration Form</a>
+    </li> -->
+
     {% comment %} {% if user.is_authenticated %}
     <li><a href="{% url 'archive' %}" class="waves-effect" ><b>Archived PoshanVatikas</b></a></li>
     {% endif %} {% endcomment %}
@@ -243,6 +250,11 @@
     {% if user.is_authenticated %}
    
     <li><a href="{% url 'logout' %}" class="waves-effect">Logout</a></li>
+    
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'form' %}">Student's Registration</a>
+      </li>
+    
     {% else %}
     <li><a href="{% url 'login' %}" class="waves-effect">Login</a></li>
     <li><a href="{% url 'register' %}" class="waves-effect">Register</a></li>
@@ -263,6 +275,11 @@
     <li><a href="{% url 'viewVatikas'%}" class="waves-effect">View All PoshanVatikas</a></li> {% endcomment %}
     <!-- <li><a href="{% url 'viewWells'%}" class="waves-effect" style="pointer-events: none">View Wells</a></li> -->
     <li><a href="{% url 'viewWells'%}" class="waves-effect">View Wells</a></li>
+    
+    <!-- <li class="nav-item">
+      <a class="nav-link" href="{% url 'registerForm' %}">Student's Registration Form</a>
+    </li> -->
+
     {% comment %} {% if user.is_authenticated %}
     <li><a href="{% url 'archive' %}" class="waves-effect" ><b>Archived PoshanVatikas</b></a></li>
     {% endif %} {% endcomment %}

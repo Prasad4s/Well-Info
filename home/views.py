@@ -1,7 +1,8 @@
 from cmath import log
 from django.core.exceptions import TooManyFieldsSent
-from django.shortcuts import render , redirect, get_object_or_404
-from .forms import CreateUserForm
+from django.shortcuts import render , redirect, get_object_or_404,HttpResponseRedirect
+from .forms import CreateUserForm,dataForm
+from .models import data_form
 import re
 # from django.core.files import 
 from django.core.files.base import ContentFile
@@ -121,13 +122,14 @@ def about(request):
 def login_request(request):
 	if request.method == "POST":
 		form = AuthenticationForm(request, data=request.POST)
+        
 		if form.is_valid():
 			username = form.cleaned_data.get('username')
 			password = form.cleaned_data.get('password')
 			user = authenticate(username=username, password=password)
 			if user is not None:
 				login(request, user)
-				messages.info(request, "You are now logged in as {username}.")
+				messages.info(request, "You are logged in.")
 				return redirect("/")
 			else:
 				messages.error(request,"Invalid username or password.")
@@ -255,3 +257,116 @@ def edit_well_picture(request, pk):
     }
 
     return render(request, 'home/edit_well_picture.html', context)
+
+#for registration form
+# Create your views here.
+def loginForm(req):
+      if req.method == 'POST': 
+            username = req.POST['unL']
+            password = req.POST['pwL']
+            logStudent = auth.authenticate(username=username, password=password)
+            if logStudent is None:
+                  print(username +" Username not found.")
+                  messages.warning(req, "Username not found.")
+                  return redirect('loginForm')
+            else:
+                  print(username+"Login successful.")
+                  messages.success(req,"Login successful.")
+                  return render(req, 'home/form.html')
+      return render(req, 'home/loginF.html')
+      
+def registerForm(req):
+    context ={}
+    context['form']= dataForm()
+    # return render(req, "home/registerF.html", context)
+    if req.method == 'POST':
+        for key, value in req.POST.items():
+            print('Key: %s' % (key) ) 
+    # print(f'Key: {key}') in Python >= 3.7
+            print('Value %s' % (value) )
+    # print(f'Value: {value}') in Python >= 3.7
+        email = req.POST['emailF']
+        username = req.POST['websiteUsername']
+        studentName =req.POST['studentName']
+        age =req.POST['age']
+        collegeName =req.POST['collegeName']
+        websiteUsername =req.POST['websiteUsername']
+        sponsered =req.POST['sponsered']
+        sponsBy =req.POST['sponsBy']
+        
+        
+        if  data_form.objects.filter(emailF=email).exists():
+                    messages.warning(req, _(u'This Email has been registered. '))        
+        elif  data_form.objects.filter(websiteUsername=username).exists():
+                messages.warning(req,"Username already exists.")
+        
+        else:
+                
+                form = dataForm(req.POST)
+                if form.is_valid():
+                                          
+                    form.save()
+                    print("User Registered Successfully.")
+                else:
+                    form.errors.as_json()
+                    print(form.errors)
+                    messages.error(req, _(u"Please check the form."))
+                # messages.info(req,"User Registered Successfully.")
+        return HttpResponseRedirect(req.path_info)
+    else:
+        context ={}
+        context['form']= dataForm()
+        return render(req, "home/registerF.html", context)    
+    return render(req,'home/registerF.html')      
+
+
+def form(req):
+    for key, value in req.POST.items():
+                print('Key: %s' % (key) ) 
+                print('Value %s' % (value) )
+    user = req.user
+    # mail = req.email
+    username = user.username
+    emailid = user.email
+    print(username,emailid)
+    # request_dict = vars(req)
+    # print(request_dict)
+    # print(req)
+    if req.method == 'POST':
+            emailF = username
+            studentName = req.POST['sname']
+            age = req.POST['age']
+            websiteUsername = emailid
+            collegeName = req.POST['cname']
+            sponsered = req.POST['sponsered']
+            sponsBy = req.POST['sponsBy']
+            ownDevice = req.POST['ownDevice']
+            date = req.POST['datE']  
+            
+            # form = dataForm(req.POST)
+            totalData = data_form(emailF=emailF,studentName=studentName,age=age,collegeName=collegeName,websiteUsername=websiteUsername,sponsered=sponsered,sponsBy=sponsBy,ownDevice=ownDevice,date=date)
+            # print(studentName)
+            if  data_form.objects.filter(emailF=emailF).exists():
+                    messages.warning(req, _(u'This Email has been registered. '))        
+                    return HttpResponseRedirect(req.path_info)
+            elif  data_form.objects.filter(websiteUsername=websiteUsername).exists():
+                messages.warning(req,"Username already exists.")
+                return HttpResponseRedirect(req.path_info)
+            else:
+                totalData.save()
+                messages.info(req,"Student succesfully registered.")
+                return render(req, 'home/viewWells.html')
+                
+    return render(req, 'home/form.html')
+
+def add_tasks (req) :
+      # if req.method == 'POST':
+      #       addTasks = req.POST['addTasks'] 
+      #       percent = req.POST['percent']
+
+      #       taskData = data_of_tasks(addTasks=addTasks,percent=percent)
+      #       taskData.save()
+      return render(req,'home/add_tasks.html')
+
+def home(req):
+    return render(req,'home/homeF.html')
