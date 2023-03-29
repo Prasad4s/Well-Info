@@ -19,5 +19,11 @@ urlpatterns = [
     path('view_entered_details/', views.view_entered_details, name="view_entered_details"),
     # path('delete/<int:id>', views.delete, name='delete')
     path('edit_well_picture/<int:pk>/', views.edit_well_picture, name='edit_well_picture'),
+# For registration form
+    path('loginForm/',views.loginForm, name='loginForm'),
+    path('registerForm/',views.registerForm, name='registerForm'),
+    path('form/',views.form, name='form'),
+    path('add_tasks/',views.add_tasks, name='add_tasks'),
+    path('home/',views.home, name='home'),
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
