@@ -227,78 +227,119 @@
   <li><a href="">English</a></li>
   <li><a href="">Hindi(coming soon)</a></li>
   <li><a href="">Marathi(coming soon)</a></li>
-</ul>-->
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
-  <div class="container">
-    <a class="navbar-brand" href="/" style="font-weight: bold; font-size: 16px;">My Wells {% if user.is_authenticated %}<span class="d-none d-sm-inline"> - Welcome {{ user.username }}</span>{% else %}
-        <span class="d-none d-sm-inline"> - Welcome Guest</span>{% endif %}</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ml-auto text-white-100">
-        <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">About</a></li>
-        <li class="nav-item"><a href="{% url 'resources' %}" class="nav-link">Resources</a></li>
-        <!-- <li class="nav-item"><a href="#" data-toggle="collapse" data-target="#side-menu" class="nav-link"><i class="material-icons">menu</i></a></li> -->
-        <li class="nav-item"><a href="{% url 'contact' %}" class="nav-link">Contact <i class="fas fa-envelope"></i></a></li>
-        <li class="nav-item"><a href="{% url 'tutorial'%}" class="nav-link">Tutorial</a></li>
-       
-          <!-- <li class="nav-item"><button id="sidenav-trigger" class="btn"><span class="fas fa-solid fa-bars"> </span></button></li> -->
-          <li class="nav-item"> <span class="right grey-text text-darken-1 hide-on-med-and-down">
-            <a  class="nav-link" id="sidenav-trigger"><i class="fas fa-solid fa-bars" data-target="side-menu" style="color: white"></i></a>
-          </span></li>
-      </ul>
-      
-    </div>
-  </div>
-</nav>
-
-<ul id="side-menu" class="sidenav_bar side-menu right-aligned navbar-nav" style="width: 350px; z-index: 99999999;">
-  <div class="ml-5">
-  <li class="nav-item"><button class="btn" onclick="toggle()" ><span class="fas fa-solid fa-bars" ></span></button></li>
-  <li class="nav-item"><a class="nav-link">Well Info</a></li>
-  <li class="nav-item">
-    <a href="{% url 'heir_map' %}" class="nav-link">Map</a>
-  </li>
-  <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">About</a></li>
-  <hr class="dropdown-divider">
-  {% if user.is_authenticated %}
-  <li>
-    <a href="{% url 'logout' %}" class="nav-link">Logout</a>
-  </li>
-  {% else %}
-  <li>
-    <a href="{% url 'login' %}" class="nav-link">Login</a>
-  </li>
-  <li>
-    <a href="{% url 'register' %}" class="nav-link">Register</a>
-  </li>
-  {% endif %}
-  <li>
-    <hr class="dropdown-divider">
-  </li>
-  <li>
-    <div class="sidebar-title">DATA CONTRIBUTION AND FORMS</div>
-  </li>
-  <li>
-    <a href="{% url 'captwellpic'%}" class="nav-link">Capture Wells</a>
-  </li>
-  <li>
-    <a href="{% url 'well_info'%}" class="nav-link">View Wells Data</a>
-  </li>
-  <li>
-    <a href="{% url 'viewWells'%}" class="nav-link">View Wells</a>
-  </li>
-  </div>
 </ul>
 
+  <!-- top nav -->
+  <nav class="blue width" style="position: sticky; top: 0; z-index: 9999999; width: 100%;">
+    <div class="nav-wrapper container" >
+      <a href="/" class="brand-logo" style="color: white;  font-weight: bold; font-size: 16px; text-align: left;">My Wells {% if user.is_authenticated %}<span class="hide-on-small-only"> - Welcome {{ user.username }}</span>{% else %}
+        <span class="hide-on-small-only"> - Welcome Guest</span>{% endif %}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      {% comment %} <!-- Display Username-->
+            {% if user.is_authenticated %}
+            <span class="right" style="color: white; font-weight: bold; font-size: 16px; text-align: right;">{{ user.username }}</span>
+          {% endif %} {% endcomment %}
+            <a href="#" data-target="mobile-nav" class="sidenav-trigger">
+              <i class="material-icons">menu</i>
+            </a>
+
+            
+      <!--<a href="/" style="text-decoration: none;"><span style="color: white;  font-weight: bold; font-size: 22px; text-align: left;">PoshanVatika</span></a>-->
+      <ul id="topnav" class="right hide-on-med-and-down" style="align-items: center;"> 
+      <li><a href="{% url 'about' %}" class="waves-effect">About</a></li>
+      {% comment %} <li><a href="{% url 'myPoshan' %}" class="waves-effect">My Poshanvatikas</a></li> {% endcomment %}
+      <!-- <li><a href="" class="waves-effect">Tree Census</a></li> -->
+      {% comment %} <li><a href="{% url 'news' %}" class="waves-effect">Beneficiaries</a></li>
+      <li><a href="{% url 'heir_map' %}" class="waves-effect">Compendiums</a></li> {% endcomment %}
+      {% comment %} <li><a href="/well_info">Well Info</a></li>
+      <li> <a href="{% url 'news' %}" class="dropdown-trigger" data-target="dropdown">Marketplace<i class="material-icons right">arrow_drop_down</i></a></li> {% endcomment %}
+      
 
 
-
+      <li><a href="{% url 'contact' %}" class="waves-effect">Contact<i class="material-icons  right">mail_outline</i></a></li> 
+      
+      <li><span class="right grey-text text-darken-1 hide-on-med-and-down">
+        <a><i class="material-icons sidenav-trigger" data-target="side-menu">menu</i></a>
+      </span></li>
+    </ul>
+    </div>
+  </nav>
+    
   
-  
+  <!--mobile view left nav-->
+  <ul class="sidenav" id="mobile-nav" style="z-index: 9999999;">
+    
+    <li><a class="subheader" style="font-size: 18px;">Well Info
+      {% if user.is_authenticated %}
+        - Welcome {{ user.username }} 
+      {% else %}
+        - Welcome Guest
+      {% endif %}
+    
+    </a></li>
+    <br>
+    <br>
+    <li><a href="{% url 'about' %}" class="waves-effect">About</a></li>
+    {% comment %} <li><a href="{% url 'myPoshan' %}" class="waves-effect">My Pohanvatikas</a></li> {% endcomment %}
+    <!-- <li><a href="" class="waves-effect">Tree Census</a></li> -->
+    {% comment %} <li><a href="{% url 'news' %}" class="waves-effect">Nutrition Beneficiaries</a></li> {% endcomment %}
+    {% comment %} <li><a href="{% url 'heir_map' %}" class="waves-effect">Compendiums</a></li>
+    <li> <a href="{% url 'news' %}" class="waves-effect">Marketplace<i class="material-icons right">arrow_drop_down</i></a></li> {% endcomment %}
+    {% comment %} <li> <a href= "{% url 'news' %}" class="waves-effect">News</a></li> {% endcomment %}
+    <li><a href="{% url 'contact' %}" class="waves-effect">Contact<i class="material-icons  right">mail_outline</i></a></li> 
+    <li><a class="subheader">Well Info</a></li>
+    <li><a href="{% url 'heir_map' %}" class="waves-effect">Map</a></li>
+    {% comment %} <li><a href="{% url 'news' %}" class="waves-effect">Reports(coming soon)</a></li>
+    <!-- <li><a href="/pages/resources" class="waves-effect">Resources</a></li> -->
+    <li><a href="{% url 'news' %}" class="waves-effect">Feedback(coming soon)</a></li> {% endcomment %}
 
+    <li>
+      <div class="divider"></div>
+    </li>
+
+    {% if user.is_authenticated %}
+   
+    <li><a href="{% url 'logout' %}" class="waves-effect">Logout</a></li>
+    {% else %}
+    <li><a href="{% url 'login' %}" class="waves-effect">Login</a></li>
+    <li><a href="{% url 'register' %}" class="waves-effect">Register</a></li>
+    {% endif %}
+
+    <li>
+      <div class="divider"></div>
+    </li>
+    <li ><a class="subheader" >DATA CONTRIBUTION AND FORMS</a></li>
+    
+    
+    {% comment %} <li><a href="https://ee.kobotoolbox.org/x/vHVD3HnV" style="font-size: 15px;">PoshanVaitka Form</a> </li>
+    <li><a href="{% url 'captvatikapic'%}" class="waves-effect">Capture PoshanVatikas</a></li> {% endcomment %}
+    <!-- <li><a href="http://ee.communitygis.net/x/RWF4D9SR" class="waves-effect">Vistrit Mahiti(Marathi Form)</a></li> -->
+    <li><a href="{% url 'captwellpic'%}" class="waves-effect">Capture Wells</a></li>
+    
+    {% comment %} <li><a href="{% url 'captseedpic'%}" class="waves-effect">Capture Seed</a></li> {% endcomment %}
+    {% comment %} <li><a href="{% url 'viewVatikas'%}" class="waves-effect">View All PoshanVatikas</a></li> {% endcomment %}
+    <li><a href="{% url 'well_info'%}" class="waves-effect">View Wells Data</a></li>
+    <li><a href="{% url 'viewWells'%}" class="waves-effect" >View Wells</a></li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'form' %}">Student's Registration</a>
+    </li>
+    <!-- <li class="nav-item">
+      <a class="nav-link" href="{% url 'registerForm' %}">Student's Registration Form</a>
+    </li> -->
+
+    {% comment %} {% if user.is_authenticated %}
+    <li><a href="{% url 'archive' %}" class="waves-effect" ><b>Archived PoshanVatikas</b></a></li>
+    {% endif %} {% endcomment %}
+    <!-- style="font-size: large;" -->
+    
+    <!-- <li>
+      <div class="divider"></div>
+    </li>
+    <li ><a class="subheader" >TREE CENSUS</a></li>
+    
+    <li><a class="nav-link" href="https://ee.kobotoolbox.org/x/KCR9XYmc">Form</a></li> -->
+    <!-- <li><a class="nav-link" href="">Charts</a></li> -->
+    
+  </ul>
 
   
   {% block content %}
@@ -326,45 +367,59 @@ if (window.location.pathname === "/view_wells/") {
 
 }
 
-$("#sidenav-trigger").click(function() {
-  
-  $("body").css({
-    "overflow": "hidden"
-        });
-  $('.sidenav_bar').css({
-    'z-index': '9999999',
-     'transform': 'translateX(-0%)'
-});
-$(".sidenav_bar").toggle();
-			});
+    <li>
+      <div class="divider"></div>
+    </li>
 
-      function toggle ()
-      {
-        $(".sidenav_bar").toggle();
-			
-      }
-  
-  
-  objBasemaps = {
-      "Open Street Maps": lyrOSM,
-      "Imagery":lyrImagery
-  };
-  
-  objOverlays = {
-  };
-  
-  // var ctlLayers = L.control.layers(objBasemaps, objOverlays).addTo(mymap);
-  var ctlSidebar = L.control.sidebar('side-bar').addTo(mymap);
-  // var ctlPan = L.control.pan().addTo(mymap);
+    {% if user.is_authenticated %}
+   
+    <li><a href="{% url 'logout' %}" class="waves-effect">Logout</a></li>
+    
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'form' %}">Student's Registration</a>
+      </li>
+    
+    {% else %}
+    <li><a href="{% url 'login' %}" class="waves-effect">Login</a></li>
+    <li><a href="{% url 'register' %}" class="waves-effect">Register</a></li>
+    {% endif %}
 
-  var ctlEasybutton = L.easyButton('fa fa fa-bars', function(){
-      ctlSidebar.toggle(); 
-  }).addTo(mymap);
-  ctlSidebar.show();
+    <li>
+      <div class="divider"></div>
+    </li>
+    <li ><a class="subheader" >DATA CONTRIBUTION AND FORMS</a></li>
+    
+    
+    {% comment %} <li><a href="https://ee.kobotoolbox.org/x/vHVD3HnV" style="font-size: 15px;">PoshanVaitka Form</a> </li>
+    <li><a href="{% url 'captvatikapic'%}" class="waves-effect">Capture PoshanVatikas</a></li> {% endcomment %}
+    <!-- <li><a href="http://ee.communitygis.net/x/RWF4D9SR" class="waves-effect">Vistrit Mahiti(Marathi Form)</a></li> -->
+    <li><a href="{% url 'captwellpic'%}" class="waves-effect">Capture Wells</a></li>
+    <li><a href="{% url 'well_info'%}" class="waves-effect">View Wells Data</a></li>
+    {% comment %} <li><a href="{% url 'captseedpic'%}" class="waves-effect">Capture Seed</a></li>
+    <li><a href="{% url 'viewVatikas'%}" class="waves-effect">View All PoshanVatikas</a></li> {% endcomment %}
+    <!-- <li><a href="{% url 'viewWells'%}" class="waves-effect" style="pointer-events: none">View Wells</a></li> -->
+    <li><a href="{% url 'viewWells'%}" class="waves-effect">View Wells</a></li>
+    
+    <!-- <li class="nav-item">
+      <a class="nav-link" href="{% url 'registerForm' %}">Student's Registration Form</a>
+    </li> -->
 
-  var ctlZoomslider = L.control.zoomslider({position:'topright'}).addTo(mymap);
-  
-  ctlAttribute = L.control.attribution({position:'bottomleft'}).addTo(mymap);
+    {% comment %} {% if user.is_authenticated %}
+    <li><a href="{% url 'archive' %}" class="waves-effect" ><b>Archived PoshanVatikas</b></a></li>
+    {% endif %} {% endcomment %}
+    
+    <!-- <li>
+      <div class="divider"></div>
+    </li>
+    <li ><a class="subheader" >TREE CENSUS</a></li>
+    
+    <li><a class="nav-link" href="https://ee.kobotoolbox.org/x/KCR9XYmc">Form</a></li> -->
+    <!-- <li><a class="nav-link" href="">Charts</a></li> -->
+    
+   
+  </ul>
+
+  </ul>
 
 
 </script>

@@ -45,5 +45,30 @@ class UploadWellPictureModel(models.Model):
         picture = InMemoryUploadedFile(outputIoStream,'ImageField', "%s.jpg" % picture.name.split('.')[0], 'image/jpeg', sys.getsizeof(outputIoStream), None)
         return picture
     class Meta:
-       managed = False
+       managed = True
        db_table = 'home_uploadwellpicturemodel'
+
+# For registration form
+
+class data_form(models.Model):
+
+    # id = models.IntegerField(primary_key=True) -- It throws an error because postgresql has an property that it generates id automatically, make primary key false
+    emailF = models.CharField(max_length=100)
+    studentName = models.CharField(max_length=100)
+    age = models.CharField(max_length=3)
+    collegeName = models.CharField(max_length=100)
+    websiteUsername = models.CharField(max_length=100)
+    sponsered = models.CharField(max_length=3)
+    sponsBy = models.CharField(max_length=100)
+    ownDevice = models.CharField(max_length=3)
+    date = models.CharField(max_length=20)
+
+    class Meta:
+        managed = True
+        db_table = 'app_data_of_form'
+
+
+# class data_of_tasks(models.Model):
+
+#     addTasks = models.CharField(max_length=200)
+#     percent = models.CharField(max_length=4)
