@@ -19,6 +19,15 @@
 #pv {
     display: none;
 }
+#wells_district label {
+    display: block;
+    text-align: left;
+    margin: 10px;
+}
+
+#wells_district {
+    display: none;
+}
 
      .info {
     padding: 6px 8px;
@@ -417,12 +426,18 @@ table, th, td
             <div class="text-center">
                 <div class="" id="boundary2" >
                     <tr>
-                        <label><input type="checkbox" value="{Nashik_wells}" style="" onchange="getBoundary(this)"><span > Nashik Wells </span></label>
+                        <label>
+                            <!-- <input type="checkbox" value="{Nashik_wells}" style="" onchange="getBoundary(this)"> -->
+
+                            <input type="checkbox" value="{CHC}" onchange="GetSelectedfac(this)">
+
+                            <span > Nashik Wells </span></label>
+                        
                     </tr>
                 </div>
-                <div class="">
+                <!-- <div class="">
                     <label><input type="checkbox" value="{bhandara}" onchange="getBoundary(this)"><span > District </span></label>
-                </div>
+                </div> -->
 
             </div>
         </table>
@@ -430,7 +445,8 @@ table, th, td
    <div id="navigatedarea">
     <!--these two dropdowns are dependent-->
      <div class="tooltips" title="Please select the State">
-       <select class='form-control' id="indstate" name="indstate" onchange="removeposhan();">
+        <!-- onchange="removeposhan();" -->
+       <select class='form-control' id="indstate" name="indstate" >
            <option value="All">Select State</option>
            <optgroup label="States"> 
              <option value="Andaman & Nicobar Island">Andaman & Nicobar Island</option>
@@ -484,9 +500,12 @@ table, th, td
         </div>
 
     &nbsp;&nbsp;
-    <div class="tooltips" title="Please select the PV" id="pv">
+    <div class="tooltips" title="Please select the state" id="pv">
         
-          <label><input type="checkbox" value="poshan" id ="chkposhan" onchange="getPoshan(this)"><span style="color:black;"><b> Show Wells  </b></span></label>
+          <label>
+            <!-- <input type="checkbox" value="poshan" id ="chkposhan" onchange="getPoshan(this)"> -->
+            <input type="checkbox" value="poshan" id ="chkposhan" >
+            <span style="color:black;"><b> Show Wells  </b></span></label>
                            
     </div>
 
@@ -497,7 +516,13 @@ table, th, td
           <option value=""> Select District</option>
          </select>
     </div>
-    
+
+    &nbsp;&nbsp;
+    <div class="tooltips" title="Please select the Wells" id="wells_district">
+        
+          <label><input type="checkbox" value="Wells" id ="chwells" onchange="defineWell(this)"><span style="color:black;"><b> Show Wells  </b></span></label>
+                           
+    </div>
     
     <div class="tooltips" style="display:none;" title="Please select the Maharashtra's Blocks" id="block">
         &nbsp;&nbsp;
@@ -544,7 +569,7 @@ table, th, td
                                 <button type="button" class="btn btn-primary" id='setbuffer'>Well facilities within <span id="demo"></span> Km </button>
                                 <a id="downloadAnchorElem" style="display:none">download</a>
 
-                                <button type="button" class="btn btn-primary mb-5" onclick=downloadBufferData()>Download </button>
+                                <!-- <button type="button" class="btn btn-primary mb-5" onclick=downloadBufferData()>Download </button> -->
 
                         </div>
                     </div>
@@ -620,97 +645,117 @@ table, th, td
 
 
 
-    {% for i in wells %}
-      
-    <script>
-        //wells
-        
-    var wellIcon = L.icon({
-            iconUrl: "{% static 'map/images/well.png' %}",
-            iconSize:     [30, 40], // size of the icon
-            //shadowSize:   [50, 64], // size of the shadow
-            iconAnchor:   [25,10], // point of the icon which will correspond to marker's location
-            // shadowAnchor: [4, 62],  // the same for the shadow
-            popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
-        });
-        var wellslayerGroup = L.layerGroup();    
-       
-  var table = 
-          
-          `<table class="w3-table" id="popup" style="font-size:12px; align:center;" >
-            <tbody>
-          {% if i.picture %}
-            <tr>
-              <tr><img src={{ i.picture.url }} alt="No image uploaded" style="height:100px; width:170px; border:2px solid #555;"/>
-            </tr>
-            {% endif %}
-  
-            {% if i.well_nm %}
-            <tr>
-                <th>Well name</th>
-                <th>{{ i.well_nm }}</th>
-            </tr>
-            {% endif %}
-  
-            {% if i.radius %}
-            <tr>
-              <td>Radius</td>
-              <td>{{ i.radius }} mtr</td>
-            </tr>
-            {% endif %}
-  
-            {% if i.depth %}
-            <tr>
-              <td>Depth</td>
-              <td>{{ i.depth }} mtr</td>
-            </tr>
-            {% endif %}
-  
-            {% if i.level %}
-            <tr>
-              <td>Level</td>
-              <td>{{ i.level }} mtr</td>
-            </tr>
-            {% endif %}
-  
-            {% if i.village %}
-            <tr>
-              <td>Village</td>
-              <td>{{ i.village }}</td>
-            </tr>
-            {% endif %}
-  
-            {% if i.district %}
-            <tr>
-              <td>District</td>
-              <td>{{ i.district }}</td>
-            </tr>
-            {% endif %}
-  
-            {% if i.state %}
-            <tr>
-              <td>State</td>
-              <td>{{ i.state }}</td>
-            </tr>
-            {% endif %}
-  
-          </tbody>
-        </table>
-        </br>`
-        var popupOptions =
-      {
-        'maxWidth': '500',
-        'className' : 'another-popup' // classname for another popup
-      }
-         var markers = L.marker(["{{ i.lat }}", "{{ i.lng }}"], {icon:wellIcon}).bindPopup(table, popupOptions);
-         wellslayerGroup.addLayer(markers).addTo(mymap);
-     </script>
-  
-  
-       {% endfor %}
+   
            
 
 </div>
+
+<script>
+function defineWell(checkbox)
+{
+    let value = checkbox.value;
+    var state = document.getElementById('indstate').value;
+    console.log(state);
+    console.log(value);
+    
+    if ($(checkbox).is(':checked')) {
+        
+        {% for i in wells %}
+
+        var wellIcon = L.icon({
+              iconUrl: "{% static 'map/images/well.png' %}",
+              iconSize:     [30, 40], // size of the icon
+              //shadowSize:   [50, 64], // size of the shadow
+              iconAnchor:   [25,10], // point of the icon which will correspond to marker's location
+              // shadowAnchor: [4, 62],  // the same for the shadow
+              popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+          });
+          var wellslayerGroup = L.layerGroup();   
+
+        var table = 
+            
+            `<table class="w3-table" id="popup" style="font-size:12px; align:center;" >
+              <tbody>
+            {% if i.picture %}
+              <tr>
+                <tr><img src={{ i.picture.url }} alt="No image uploaded" style="height:100px; width:170px; border:2px solid #555;"/>
+              </tr>
+              {% endif %}
+    
+              {% if i.well_nm %}
+              <tr>
+                  <th>Well name</th>
+                  <th>{{ i.well_nm }}</th>
+              </tr>
+              {% endif %}
+    
+              {% if i.radius %}
+              <tr>
+                <td>Radius</td>
+                <td>{{ i.radius }} mtr</td>
+              </tr>
+              {% endif %}
+    
+              {% if i.depth %}
+              <tr>
+                <td>Depth</td>
+                <td>{{ i.depth }} mtr</td>
+              </tr>
+              {% endif %}
+    
+              {% if i.level %}
+              <tr>
+                <td>Level</td>
+                <td>{{ i.level }} mtr</td>
+              </tr>
+              {% endif %}
+    
+              {% if i.village %}
+              <tr>
+                <td>Village</td>
+                <td>{{ i.village }}</td>
+              </tr>
+              {% endif %}
+    
+              {% if i.district %}
+              <tr>
+                <td>District</td>
+                <td>{{ i.district }}</td>
+              </tr>
+              {% endif %}
+    
+              {% if i.state %}
+              <tr>
+                <td>State</td>
+                <td>{{ i.state }}</td>
+              </tr>
+              {% endif %}
+    
+            </tbody>
+          </table>
+          </br>`
+
+          var popupOptions =
+        {
+          'maxWidth': '500',
+          'className' : 'another-popup' // classname for another popup
+        }
+           var markers = L.marker(["{{ i.lat }}", "{{ i.lng }}"], {icon:wellIcon}).bindPopup(table, popupOptions);
+           wellslayerGroup.addLayer(markers).addTo(mymap);
+
+
+        {% endfor %}
+    }
+    else{
+
+    }
+   
+      
+
+     
+}
+// defineWell()
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
@@ -1046,13 +1091,13 @@ $('.select').click(function() {
 $(document).ready(function() {
 
  $('#indstate').on('change', function() {
-    $("#pv").show();
+    // $("#pv").show();
     // $("#hospital").show();
  });
 
-//  $('#district').on('change',function(){
-//      $("#pv").show();
-//  });
+ $('#district').on('change',function(){
+     $("#wells_district").show();
+ });
 //console.log("hi",indstate);
 
 $('#district').on('change', function() {
@@ -1079,7 +1124,7 @@ $('#district').on('change', function() {
                                         } else {
                                             $("#mumwards").hide();
                                             $("#mumsubwards").hide();
-                                            $("#pv").show();
+                                            // $("#pv").show();
                                             $("#block").show();
                                             
 
@@ -1324,6 +1369,7 @@ let listState = {
                                     var dist = document.getElementById('district').value;
                                     var state = document.getElementById('indstate').value;
                                     // var layers = 'geonode:india_pincodes_12june';
+                                    console.log(dist,state)
                                     var layers = 'geonode:all_india_districts_11june2020';
                                     //console.log(indstate);
                                     // var distLayerLatLong= listDistrict[dist];
@@ -1361,8 +1407,58 @@ let listState = {
                                     console.log(distLayerList);
 
                                 }
+                                
+                                var districtLayer;
+                                function putdist() {
+                                    // clear_layer();
+                                    // clear_distlayer();
+                                    // clear_tallayer();
+                                    // clear_pinlayer();
+                                    var dist = "Nashik";
+                                    var state = "Maharashtra";
+                                    // var layers = 'geonode:india_pincodes_12june';
+                                    console.log(dist,state)
+                                    var layers = 'geonode:all_india_districts_11june2020';
+                                    //console.log(indstate);
+                                    // var distLayerLatLong= listDistrict[dist];
+                                    if (dist == 'Mumbai City' || dist == 'Mumbai Suburban')
+                                        mymap.setView([19.0760, 72.8777], 11);
+                                    if (state == "Chhattisgarh") {
+                                        layers = 'geonode:all_india_districts_11june2020';
+                                    }
+                                    var districtLayer = L.tileLayer.wms('https://geoserver2.communitygis.net/geoserver/wms', {
+                                        layers: layers,
+                                        format: 'image/png',
+                                        transparent: 'true',
+                                        // version: '1.3.0',
+                                        cql_filter: `district='${dist}' AND state='${state}'`,
+                                        // cql_filter: "district='" + distLayerLatLong[0] + "'",
+                                        style: ""
+                                    });
+                                    console.log(districtLayer)
+                                    // clear_layer(); 
+                                    // clear_distlayer();   
+                                    // clear_tallayer();
+                                    
+                                    
+                                    // clear_pinlayer();
+                                  
+                                    //console.log(wms_layer);
+                                    //clear_layer();
+                                    //clearpoint_layer();
+                                    districtLayer.addTo(mymap);
+                                    // mymap.setView([distLayerLatLong[1],distLayerLatLong[2]],8);
+                                    // mymap.setView(layers,dist);
+                                    // setView1('geonode:india_pincodes_12june',dist);
+                                    setView1('geonode:all_india_districts_11june2020',dist);
+                                    distLayerList.push(districtLayer);
+                                    // addWMSLegend(layer);
+                                    console.log(distLayerList);
 
-
+                                }
+                                function removeDistrictLayer() {
+                                    mymap.removeLayer(districtLayer);
+                                }
                                 function putWMSLayertaluka() {
                                     clear_pinlayer();
                                     
@@ -1453,8 +1549,11 @@ let listState = {
                                             removewards();
                                         else if (boundary == "{mumadm}")
                                             removewards();
-                                        else if (boundary == "{Nashik_wells}")
+                                        else if (boundary == "{Nashik_wells}"){
+                                            // removeWFSfac("CHC");
                                             removeWMS("geonode:Nashik_district_well");
+                                            location.reload();
+                                        }
                                         else
                                             removeWMS("geonode:maha_demography_with_mumbai");
                                     }
@@ -1524,8 +1623,193 @@ let listState = {
                                 }
 
 
+                                let activatedHealthFacility = {}
+
+        function putWFSFacility(facility,district) {
+            putdist()
+            var wellIcon = L.icon({
+                    iconUrl: "{% static 'map/images/well.png' %}",
+                    iconSize:     [30, 40], // size of the icon
+                    //shadowSize:   [50, 64], // size of the shadow
+                    iconAnchor:   [25,10], // point of the icon which will correspond to marker's location
+                    // shadowAnchor: [4, 62],  // the same for the shadow
+                    popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+                });
+                                var geojsonMarkerOptions = {
+                                    radius: 6,
+                                    fillColor: "#013378",
+                                    color: "#000",
+                                    weight: 1,
+                                    opacity: 1,
+                                    fillOpacity: 0.8
+                                };
+
+                                var geojsonMarkerOptions2 = {
+                                    radius: 6,
+                                    fillColor: "#0004ff",
+                                    color: "#000",
+                                    weight: 1,
+                                    opacity: 1,
+                                    fillOpacity: 0.8
+                                };
+
+                                var geojsonMarkerOptions3 = {
+                                    radius: 5,
+                                    fillColor: "#a8325a",
+                                    color: "#000",
+                                    weight: 1,
+                                    opacity: 1,
+                                    fillOpacity: 0.8
+                                };
+
+                                var geojsonMarkerOptions4 = {
+                                    radius: 5,
+                                    fillColor: "#143d5e",
+                                    color: "#000",
+                                    weight: 1,
+                                    opacity: 1,
+                                    fillOpacity: 0.8
+                                };
+
 
                                 
+                                // const url = 'https://geoserver2.communitygis.net/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typename=geonode:maha_village_health_centroid_29mar';
+                                const url='https://geonode.communitygis.in/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&typename=geonode%3ANashik_district_well&outputFormat=json&srs=EPSG%3A4326&srsName=EPSG%3A4326'
+                                const url2 = 'https://geoserver2.communitygis.net/geoserver/ows?service=WFS&version=1.0.0&request=GetFeature&outputFormat=json&typename=geonode:townhealth_centroid_15apr';
+                               
+                                if (facility == 'CHC')
+                                {
+                                    newurl = url ;
+                                    // + `&cql_filter=chc_num>0 AND district_n='${district}'`;
+                                }
+
+                                function onEachFeatureForPoint(feature, layer) {
+                                    if (facility === 'CHC') {
+                                        layer.bindPopup(`<div class = 'text-center'>Well Data<br>
+                                District: ${feature.properties.District}<br>
+                                Well_Type :${feature.properties.Well_Type}<br>
+                                
+                                </div>`)
+                                    }
+                                    if (facility === 'PHC') {
+                                        layer.bindPopup(`<div class = 'text-center'>PHC<br>
+                                Source: Census 2011<br>
+                                Village Name: ${feature.properties.village_na}<br>
+                                Distance Range: ${feature.properties.phc_distan}<br>
+                                Doctors In Position :${feature.properties.phc_doc_in}<br>
+                                Doctors Total Strength :${feature.properties.phc_doc_nu}<br>
+                                Para Medical Staff Total Strength : ${feature.properties.phc_param_}<br>
+                                Para Medical Staff In Position : ${feature.properties.phc_para_1}fen
+                                </div>`)
+                                    }
+                                    if (facility === 'Allo') {
+                                        layer.bindPopup(`<div class = 'text-center'>Allopathy Hospital<br>
+                                Distance Range: ${feature.properties.h_allo_dst}<br>
+                                Doctors In Position :${feature.properties.h_allo_din}<br>
+                                Doctors Total Strength :${feature.properties.h_allo_doc}<br>
+                                Total Beds :${feature.properties.h_allo_bed}<br>
+                                Para Medical Staff Total Strength : ${feature.properties.h_allo_pm}<br>
+                                Para Medical Staff In Position : ${feature.properties.h_allo_pin}
+                                </div>`)
+                                    } else if (facility === 'Alt') {
+                                        layer.bindPopup(`<div class = 'text-center'>Alternate Hospital<br>
+                                Distance Range: ${feature.properties.h_alt_dst}<br>
+                                Doctors In Position :${feature.properties.h_alt_din}<br>
+                                Doctors Total Strength :${feature.properties.h_alt_doc}<br>
+                                Total Beds :${feature.properties.h_alt_bed}<br>
+                                Para Medical Staff Total Strength : ${feature.properties.h_alt_pm}<br>
+                                Para Medical Staff In Position : ${feature.properties.h_alt_pin}
+                                </div>`)
+                                    }
+
+                                }
+                                fetch(newurl).then(
+                                    function(response) {
+                                        if (response.status !== 200) {
+                                            console.log('Looks like there was a problem. Status Code: ' +
+                                                response.status);
+                                            return;
+                                        }
+                                        
+                                        response.json().then(function(geojsonData) {
+                                            // console.log(geojsonData.features);
+                                            healthFacility = L.geoJson(geojsonData.features, {
+                                                pointToLayer: function(feature, latlng) {
+                                                    if (facility === 'CHC')
+                                                        return L.circleMarker(latlng, geojsonMarkerOptions);
+                                                    else if (facility === 'PHC')
+                                                        return L.circleMarker(latlng, geojsonMarkerOptions2);
+                                                    else if (facility === 'Allo')
+                                                        return L.circleMarker(latlng, geojsonMarkerOptions3);
+                                                    else if (facility === 'Alt')
+                                                        return L.circleMarker(latlng, geojsonMarkerOptions4);
+                                                },
+                                                onEachFeature: onEachFeatureForPoint,
+                                            }).addTo(mymap);
+                                            var hel=healthFacility1
+                                            //legend.addTo(mymap);
+                                          
+                                            activatedHealthFacility[facility] = healthFacility;
+                                            
+                                            
+                                            //legend.update();
+                                        });
+                                        
+
+                                    }).catch(function(err) {
+                                    console.log('Fetch Error :-S', err);
+                                });
+                                //})
+                                };
+
+                                // putWFSFacility("CHC","Nashik");
+
+                                function removeWFSfac(facility) {
+                                    console.log(activatedHealthFacility)
+                                    mymap.removeLayer(activatedHealthFacility[facility]);
+                                    // remove(facility);
+                                    // legend.update();
+                                    location.reload();
+                                };
+
+
+
+                                function GetSelectedfac(obj) {
+                                   
+                                    let fac = obj.value;
+                                    var district = document.getElementById('district').value;
+                                    if ($(obj).is(":checked")) {
+                                        if (fac == "{CHC}")
+                                        {
+                                        putWFSFacility("CHC","Nashik");
+                                        }
+                                    } else {
+                                        mymap.removeLayer(circle);
+                                        oldhfbb.forEach(layer => mymap.removeLayer(layer));
+                                        healthFacilityInBB = null;
+                                        healthFacility2 = null;
+                                        healthFacility1 = null;
+                                        if (fac === "{CHC}")
+                                            removeWFSfac("CHC");
+                                        else if (fac === "{PHC}")
+                                            removeWFSfac("PHC");
+                                        else if (fac == '{Allo}')
+                                            removeWFSfac("Allo");
+
+                                        else if (fac == '{Alt}')
+                                            removeWFSfac("Alt");
+                                        else if (fac == '{DCH}')
+                                            removeArogya("DCH");
+                                        else if (fac == '{DCHC}')
+                                            removeArogya("DCHC");
+                                        else if (fac == '{DCCC}')
+                                            removeArogya("DCCC");
+                                    };
+}
+
+
+
+
                                 function setView1(layerName, selectedBoundary) {
                                     // alert(layerName);
                                     if (area) {
@@ -1559,7 +1843,7 @@ let listState = {
                                                 lng = area.getBounds()._northEast.lng
                                                 mymap.setView([lat, lng - 0.4], 8);
                                                 geojson = L.geoJson(geojsonData.features, {
-                                                style : style1,
+                                                // style : style1,
                                                 onEachFeature: onEachFeature
                                                 }).addTo(mymap);
                                                 // LayerList.push(geojson);
@@ -1598,22 +1882,23 @@ let listState = {
 
                                 }
                                 function putlayers(layer) {
-                                    var wms_layer = L.tileLayer.wms('https://geonode.communitygis.in/geoserver/ows?service=WMS', {
-                                        layers: layer,
-                                        format: 'image/png',
-                                        transparent: 'true',
-                                        tiled: "true",
-                                        opacity: 0.7,
-                                    });
-                                    wms_layer.addTo(mymap);
-                                    newLayerList.push(wms_layer);
+                                    putdist() 
+                                    // var wms_layer = L.tileLayer.wms('https://geonode.communitygis.in/geoserver/ows?service=WMS', {
+                                    //     layers: layer,
+                                    //     format: 'image/png',
+                                    //     transparent: 'true',
+                                    //     tiled: "true",
+                                    //     opacity: 0.7,
+                                    // });
+                                    // wms_layer.addTo(mymap);
+                                    // newLayerList.push(wms_layer);
 
-                                    if (wms_legend) {
-                                        mymap.removeControl(wms_legend);
-                                    }
-                                    //console.log(wms_legend); 
-                                    addWMSLegend(layer);
-                                    TRIBLAYER = "https://geoserver2.communitygis.net/geoserver/geonode/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=" + wms_layer.options.layers + "&QUERY_LAYERS=" + wms_layer.options.layers;
+                                    // if (wms_legend) {
+                                    //     mymap.removeControl(wms_legend);
+                                    // }
+                                    // //console.log(wms_legend); 
+                                    // addWMSLegend(layer);
+                                    // TRIBLAYER = "https://geoserver2.communitygis.net/geoserver/geonode/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&LAYERS=" + wms_layer.options.layers + "&QUERY_LAYERS=" + wms_layer.options.layers;
 
 
                                 }
