@@ -258,6 +258,17 @@ def edit_well_picture(request, pk):
 
     return render(request, 'home/edit_well_picture.html', context)
 
+def tutorial(request):
+     return render(request,'home/tutorial.html')
+
+def resources(request):
+     return render(request,'home/resources.html')
+
+def view_wells(request):
+     wells = UploadWellPictureModel.objects.all()
+     context = {'wells': wells}
+     return render(request,'home/wells.html',context)
+
 #for registration form
 # Create your views here.
 def loginForm(req):

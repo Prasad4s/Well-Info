@@ -3,7 +3,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from . import views
 urlpatterns = [
-    path('', views.viewWells, name='viewWells'),
+    # path('', views.viewWells, name='viewWells'),
+    # path('',views.view_wells, name='view_wells'),
     path('viewWells/',views.viewWells, name='viewWells'),
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
@@ -19,11 +20,13 @@ urlpatterns = [
     path('view_entered_details/', views.view_entered_details, name="view_entered_details"),
     # path('delete/<int:id>', views.delete, name='delete')
     path('edit_well_picture/<int:pk>/', views.edit_well_picture, name='edit_well_picture'),
+    path('tutorial/',views.tutorial, name='tutorial'),
+    path('resources/',views.resources, name='resources'),
 # For registration form
     path('loginForm/',views.loginForm, name='loginForm'),
     path('registerForm/',views.registerForm, name='registerForm'),
     path('form/',views.form, name='form'),
     path('add_tasks/',views.add_tasks, name='add_tasks'),
     path('home/',views.home, name='home'),
-    
+    #  path('view_wells/',views.view_wells, name='view_wells'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
