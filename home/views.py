@@ -344,18 +344,20 @@ def form(req):
     # print(request_dict)
     # print(req)
     if req.method == 'POST':
-            emailF = username
+            emailF = emailid
             studentName = req.POST['sname']
             age = req.POST['age']
-            websiteUsername = emailid
+            websiteUsername = username
             collegeName = req.POST['cname']
             sponsered = req.POST['sponsered']
             sponsBy = req.POST['sponsBy']
             ownDevice = req.POST['ownDevice']
             date = req.POST['datE']  
+            grad_year = req.POST['grad_year']
+            grad_stream = req.POST['grad_stream']
             
             # form = dataForm(req.POST)
-            totalData = data_form(emailF=emailF,studentName=studentName,age=age,collegeName=collegeName,websiteUsername=websiteUsername,sponsered=sponsered,sponsBy=sponsBy,ownDevice=ownDevice,date=date)
+            totalData = data_form(emailF=emailF,studentName=studentName,age=age,collegeName=collegeName,websiteUsername=websiteUsername,sponsered=sponsered,sponsBy=sponsBy,ownDevice=ownDevice,date=date,grad_year=grad_year,grad_stream=grad_stream)
             # print(studentName)
             if  data_form.objects.filter(emailF=emailF).exists():
                     messages.warning(req, _(u'This Email has been registered. '))        

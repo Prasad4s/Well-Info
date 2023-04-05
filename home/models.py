@@ -48,6 +48,8 @@ class UploadWellPictureModel(models.Model):
        managed = True
        db_table = 'home_uploadwellpicturemodel'
 
+    def __str__(self):
+        return self.well_nm
 # For registration form
 
 class data_form(models.Model):
@@ -62,11 +64,15 @@ class data_form(models.Model):
     sponsBy = models.CharField(max_length=100)
     ownDevice = models.CharField(max_length=3)
     date = models.CharField(max_length=20)
+    grad_year= models.CharField(max_length=20)
+    grad_stream= models.CharField(max_length=20)
 
     class Meta:
         managed = True
         db_table = 'app_data_of_form'
 
+    def __str__(self):
+        return self.websiteUsername+"- of - "+self.collegeName+" -Institute"
 
 # class data_of_tasks(models.Model):
 
