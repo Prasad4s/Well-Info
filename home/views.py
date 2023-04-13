@@ -416,20 +416,20 @@ def form(req):
             sponsBy = req.POST['sponsBy']
             ownDevice = req.POST['ownDevice']
             date = req.POST['datE']  
-            grad_year = req.POST['grad_year']
-            grad_stream = req.POST['grad_stream']
-            branch_name= req.POST['branch_name']
-            village_name = req.POST['village_name']
-            taluka_name = req.POST['taluka_name']
-            river_name = req.POST['river_name']
-            dist_river_village = req.POST['dist_river_village']
-            field_work_map = req.POST['rating1']
+            # grad_year = req.POST['grad_year']
+            #grad_stream = req.POST['grad_stream']
+            # branch_name= req.POST['branch_name']
+            # village_name = req.POST['village_name']
+            # taluka_name = req.POST['taluka_name']
+            # river_name = req.POST['river_name']
+            # dist_river_village = req.POST['dist_river_village']
+            # field_work_map = req.POST['rating1']
             # digitisation = req.POST['rating2']
             # trip_data_capture = req.POST['rating3']
             # coding = req.POST['rating4']
 
             # form = dataForm(req.POST)
-            totalData = data_form(emailF=emailF,studentName=studentName,age=age,collegeName=collegeName,websiteUsername=websiteUsername,sponsered=sponsered,sponsBy=sponsBy,ownDevice=ownDevice,date=date,grad_year=grad_year,grad_stream=grad_stream,branch_name=branch_name,village_name=village_name,taluka_name=taluka_name,river_name=river_name,dist_river_village=dist_river_village,field_work_map=field_work_map)
+            totalData = data_form(emailF=emailF,studentName=studentName,age=age,collegeName=collegeName,websiteUsername=websiteUsername,sponsered=sponsered,sponsBy=sponsBy,ownDevice=ownDevice,date=date)
 
             # totalData = data_form(emailF=emailF,studentName=studentName,age=age,collegeName=collegeName,websiteUsername=websiteUsername,sponsered=sponsered,sponsBy=sponsBy,ownDevice=ownDevice,date=date,grad_year=grad_year,grad_stream=grad_stream,branch_name=branch_name,village_name=village_name,taluka_name=taluka_name,river_name=river_name,dist_river_village=dist_river_village,field_work_map=field_work_map,digitisation=digitisation,trip_data_capture=trip_data_capture,coding=coding)
             # print(studentName)

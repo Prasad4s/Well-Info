@@ -64,8 +64,8 @@ class data_form(models.Model):
     sponsBy = models.CharField(max_length=100)
     ownDevice = models.CharField(max_length=3)
     date = models.CharField(max_length=20)
-    grad_year= models.CharField(max_length=20)
-    grad_stream= models.CharField(max_length=20)
+    # grad_year= models.CharField(max_length=20)
+    # grad_stream= models.CharField(max_length=20)
 
     class Meta:
         managed = True
