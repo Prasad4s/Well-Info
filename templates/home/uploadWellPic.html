@@ -12,6 +12,50 @@
       color: black;
       font-size: 18px;
     }
+    #water_quality {
+      margin-top: 20px;
+
+    }
+    label[for="water_quality"] {
+      padding-right: 10px;
+    }
+    #water_quality {
+      z-index: 9999;
+    }
+    .select-wrapper input.select-dropdown{
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 1001;
+    }
+    #water_quality ~ .select-wrapper {
+      position: relative;
+      z-index: 999;
+    }
+    .select-dropdown.dropdown-content {
+      top: 1000px !important;
+      left: 0 !important;
+    }
+    {% comment %} CSS code for making page responsive {% endcomment %}
+    @media (max-width: 700px) {
+      .recipes {
+        flex-direction: column;
+        align-items: center;
+      }
+    
+      .main-image {
+        margin-right: 0;
+        margin-bottom: 20px;
+      }
+    
+      .buttons-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+    }
+    
   
   
 </style>
@@ -78,6 +122,20 @@
           <input placeholder="Allow location access to capture your location" id="lng" type="text" name="lng" readonly="readonly" required>
           <label for="title">Longitude</label>
         </div>
+        <div class="input-field">
+          <label for="water_quality" style="font-size: 15px;">Quality of water:</label>
+          <input placeholder="drinking/agriculture" id="lng" type="text" name="water_quality">
+          
+        </div>
+        
+        <br>
+        <div class="input-field">
+          <input placeholder="Enter the date" id="date" type="date" name="date" required>
+          <label for="title">Date</label>
+        </div> 
+        
+           
+      
 
         <div class="input-section center">
         <a id="location-btn" class="waves-effect waves-light btn-small" style=" background-color: #4CAF50; visibility: hidden;">Get Location</a>
@@ -104,8 +162,8 @@
       </form>
       <script>
         window.onload = function(){
-  document.getElementById('location-btn').click();
-}
+          document.getElementById('location-btn').click();
+        }
       </script>
     </div>
 
