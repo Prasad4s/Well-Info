@@ -102,15 +102,77 @@ def is_ajax(request):
 def uploadwellpic(request):
     if request.method == 'POST':
         form = UploadWellPictureForm(request.POST, request.FILES)
+        # print(form)
+        
         if form.is_valid():
-            instance = form.save()
-            instance.user = request.user
+            print(form)
+
+            for key, value in request.POST.items():
+                print('Key: %s' % (key) ) 
+                print('Value %s' % (value) )
+            
+                  
+        
+            instance = form.save(commit=False)
+            if not request.user.is_authenticated:
+                instance.username = "Guest"
+            else:
+                instance.username = request.user.username
+
+    #         # instance.user = request.user.username
+    #         instance.water_quality='agriculture'
+    #         instance.save()
+    #         messages.success(request, "Well information added." )
+    #         print("data is saved.")
+    #         return redirect('/captwellpic')
+    #     else: 
+    #         print(form)
+    #         print(form.errors)
+        
+    # else:
+    #     form = UploadWellPictureForm()
+            name = request.POST.get('name')
+            well_nm = request.POST.get('well_nm')
+            radius = request.POST.get('radius')
+            depth = request.POST.get('depth')
+            level = request.POST.get('level')
+            village = request.POST.get('village')
+            district = request.POST.get('district')
+            state = request.POST.get('state')
+            pincode = request.POST.get('pincode')
+            lat = request.POST.get('lat')
+            lng = request.POST.get('lng')
+            date= request.POST.get('date')
+            water_quality = request.POST.get('water_quality')
+            print("water quality and user name " ,water_quality+instance.username)
+            # print(form)
+            try:
+                imgstr = re.search(r'base64,(.*)', datauri).group(1)
+                data = ContentFile(base64.b64decode(imgstr))
+                myfile = "WellPics/profile-"+time.strftime("%Y%m%d-%H%M%S")+".png"
+                fs = FileSystemStorage()
+                filename = fs.save(myfile, data)
+                picLocation = UploadWellPictureModel.objects.create(picture=filename, name=name, well_nm=well_nm, radius=radius, depth=depth, level=level, village=village, district=district, state=state,pincode=pincode, lat=lat, lng=lng, date=date, username=obj.username, water_quality =water_quality)
+                picLocation.save()
+                datauri= False
+                del datauri
+            except NameError:
+                print("Image is not saved")
             instance.save()
-            messages.success(request, "Registration successful." )
             print("data is saved.")
-            return redirect('/captwellpic')
+            messages.success(request, "Thanks! Well information has been added." )
+            # return redirect('/viewWells')
+                
+        else:
+            # print(form.errors.as_data())
+            for field in form:
+                 print(field.errors)
+            
+            messages.error(request, "Please fill all required fields." )
+            
+                 
     else:
-        form = UploadWellPictureForm()
+            form = UploadWellPictureForm()
     return render(request,'home/uploadWellPic.html',{})
 
 def contact(request):
@@ -343,6 +405,7 @@ def form(req):
     # request_dict = vars(req)
     # print(request_dict)
     # print(req)
+    # age = .['age']
     if req.method == 'POST':
             emailF = emailid
             studentName = req.POST['sname']
@@ -355,9 +418,20 @@ def form(req):
             date = req.POST['datE']  
             grad_year = req.POST['grad_year']
             grad_stream = req.POST['grad_stream']
-            
+            branch_name= req.POST['branch_name']
+            village_name = req.POST['village_name']
+            taluka_name = req.POST['taluka_name']
+            river_name = req.POST['river_name']
+            dist_river_village = req.POST['dist_river_village']
+            field_work_map = req.POST['rating1']
+            # digitisation = req.POST['rating2']
+            # trip_data_capture = req.POST['rating3']
+            # coding = req.POST['rating4']
+
             # form = dataForm(req.POST)
-            totalData = data_form(emailF=emailF,studentName=studentName,age=age,collegeName=collegeName,websiteUsername=websiteUsername,sponsered=sponsered,sponsBy=sponsBy,ownDevice=ownDevice,date=date,grad_year=grad_year,grad_stream=grad_stream)
+            totalData = data_form(emailF=emailF,studentName=studentName,age=age,collegeName=collegeName,websiteUsername=websiteUsername,sponsered=sponsered,sponsBy=sponsBy,ownDevice=ownDevice,date=date,grad_year=grad_year,grad_stream=grad_stream,branch_name=branch_name,village_name=village_name,taluka_name=taluka_name,river_name=river_name,dist_river_village=dist_river_village,field_work_map=field_work_map)
+
+            # totalData = data_form(emailF=emailF,studentName=studentName,age=age,collegeName=collegeName,websiteUsername=websiteUsername,sponsered=sponsered,sponsBy=sponsBy,ownDevice=ownDevice,date=date,grad_year=grad_year,grad_stream=grad_stream,branch_name=branch_name,village_name=village_name,taluka_name=taluka_name,river_name=river_name,dist_river_village=dist_river_village,field_work_map=field_work_map,digitisation=digitisation,trip_data_capture=trip_data_capture,coding=coding)
             # print(studentName)
             if  data_form.objects.filter(emailF=emailF).exists():
                     messages.warning(req, _(u'This Email has been registered. '))        
