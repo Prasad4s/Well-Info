@@ -145,6 +145,13 @@ var table =
           </tr>
           {% endif %}
 
+          {% if i.name %}
+          <tr>
+              <th>Information by</th>
+              <th>{{ i.name }}</th>
+          </tr>
+          {% endif %}
+
           {% if i.well_nm %}
           <tr>
               <th>Well name</th>
