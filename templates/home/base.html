@@ -208,10 +208,11 @@
             {% if user.is_authenticated %}
             <span class="right" style="color: white; font-weight: bold; font-size: 16px; text-align: right;">{{ user.username }}</span>
           {% endif %} {% endcomment %}
+         
             <a href="#" data-target="mobile-nav" class="sidenav-trigger">
               <i class="material-icons">menu</i>
             </a>
-
+           
             
       <!--<a href="/" style="text-decoration: none;"><span style="color: white;  font-weight: bold; font-size: 22px; text-align: left;">PoshanVatika</span></a>-->
       <ul id="topnav" class="right hide-on-med-and-down" style="align-items: center;"> 
@@ -227,6 +228,8 @@
 
       <li><a href="{% url 'contact' %}" class="waves-effect">Contact<i class="material-icons  right">mail_outline</i></a></li> 
       <li><a href="{% url 'resources' %}" class="waves-effect">Resources</a></li>
+       <!-- well count -->
+       <li>Well counter-<b>{{  wellcount }}</b></li>
     <!-- <li ><a href="{% url 'tutorial'%}" class="waves-effect">Tutorial</a></li> -->
    
       <li><span class="right grey-text text-darken-1 hide-on-med-and-down">
@@ -291,7 +294,7 @@
     {% comment %} <li><a href="{% url 'captseedpic'%}" class="waves-effect">Capture Seed</a></li> {% endcomment %}
     {% comment %} <li><a href="{% url 'viewVatikas'%}" class="waves-effect">View All PoshanVatikas</a></li> {% endcomment %}
     <li><a href="{% url 'well_info'%}" class="waves-effect">View Wells Data</a></li>
-    <li><a href="{% url 'viewWells'%}" class="waves-effect" >View Wells</a></li>
+    <li><a href="{% url 'viewWells'%}" class="waves-effect" >View Wells {{ id.UploadWellPictureModel.count }} {{wellcount}}</a></li>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'form' %}">Student's Registration</a>
     </li>
@@ -369,7 +372,7 @@
     {% comment %} <li><a href="{% url 'captseedpic'%}" class="waves-effect">Capture Seed</a></li>
     <li><a href="{% url 'viewVatikas'%}" class="waves-effect">View All PoshanVatikas</a></li> {% endcomment %}
     <!-- <li><a href="{% url 'viewWells'%}" class="waves-effect" style="pointer-events: none">View Wells</a></li> -->
-    <li><a href="{% url 'viewWells'%}" class="waves-effect">View Wells</a></li>
+    <li><a href="{% url 'viewWells'%}" class="waves-effect">View Wells {{ id.UploadWellPictureModel.count }} {{wellcount}}</a></li>
     
     <!-- <li class="nav-item">
       <a class="nav-link" href="{% url 'registerForm' %}">Student's Registration Form</a>
