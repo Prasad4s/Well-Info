@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 import plotly.express as px
 from django.http import HttpResponse
 import csv
+from django.db.models import Count
 
 
 
@@ -49,6 +50,7 @@ def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 def captwellpic(request):
+    
     form = UploadWellPictureForm()
     global datauri
     # if request.is_ajax():
@@ -218,8 +220,9 @@ def register_request(request):
     return render(request, "home/register.html", context)
 
 def well_info(request):
-    welldata = UploadWellPictureModel.objects.all().order_by('id')
-    
+    welldata = UploadWellPictureModel.objects.all().order_by('name')
+    wellcount = UploadWellPictureModel.objects.count()
+    wellcount_group = UploadWellPictureModel.objects.values('name', 'village').annotate(total=Count('well_nm')).order_by('name')
     # check if a search query was submitted
     if request.GET.get('search'):
         # get the search query from the submitted form
@@ -238,6 +241,8 @@ def well_info(request):
     context = {
         'welldata': welldata,
         'message': message,
+        'wellcount':wellcount,
+        'wellcount_group':wellcount_group,
     }
     # well_data= UploadWellPictureModel.objects.all().order_by('id')
     # date = []
