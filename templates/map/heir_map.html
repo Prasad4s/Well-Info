@@ -429,14 +429,19 @@ table, th, td
             </tr>
             <div class="text-center">
                 <div class="" id="boundary2" >
-                    <tr>
+                    <!-- <tr>
                         <label>
-                            <!-- <input type="checkbox" value="{Nashik_wells}" style="" onchange="getBoundary(this)"> -->
+                         
 
                             <input type="checkbox" value="{CHC}" onchange="GetSelectedfac(this)">
 
                             <span > Nashik Wells </span></label>
                         
+                    </tr> -->
+                    <tr>
+                    <label for="dbwells">
+                        <input type="checkbox" value="dbWells" id ="dbwells" onchange="defineWell(this)">
+                        <span style="color:black;"><b> Show Wells  </b></span></label>
                     </tr>
                 </div>
                 <!-- <div class="">
@@ -653,17 +658,27 @@ table, th, td
 </div>
 
 <script>
+
 function defineWell(checkbox)
 {
     let value = checkbox.value;
+    // alert(value)
+    const cb = document.querySelector('#dbwells');
+    console.log(cb.checked);
+    // alert("checked status",cb.checked);
     var state = document.getElementById('indstate').value;
     console.log(state);
     console.log(value);
+    var list = [];
     
     if ($(checkbox).is(':checked')) {
+        const cb = document.querySelector('#dbwells');
+        console.log(cb.checked);
+        // alert("checked staus",cb.checked);
+        
         
         {% for i in wells %}
-
+        
         var wellIcon = L.icon({
               iconUrl: "{% static 'map/images/well.png' %}",
               iconSize:     [30, 40], // size of the icon
@@ -751,12 +766,18 @@ function defineWell(checkbox)
         }
            var markers = L.marker(["{{ i.lat }}", "{{ i.lng }}"], {icon:wellIcon}).bindPopup(table, popupOptions);
            wellslayerGroup.addLayer(markers).addTo(mymap);
-
-
+           list.push(wellslayerGroup); 
+       
         {% endfor %}
+       
     }
     else{
-
+        // mymap.removeLayer(markers);
+        const cb = document.getElementById("dbwells");
+        console.log(cb.checked);
+        // alert("checked staus in else",cb.checked);
+        mymap.removeLayer(wellslayerGroup);
+        
     }
    
       

@@ -43,6 +43,8 @@
             <!-- Button to redirect to graph_well page -->
             <button class="btn btn-primary" onclick="location.href='{% url 'graph_well' %}'">Graph</button>  
             <input type=button class='btn btn-primary' value="Print me!" onClick="javascript:window.print()">          
+        
+            <a href="#" id="myHoverTitle" onclick="toggleTable();">View/HIde Student wise -Well count </a>
         </div>
         
     </div>
@@ -56,10 +58,34 @@
     
     <div class="row justify-content-around mt-10">
         <div class="col-sm-8 border">
+            <table id="myContentHover" border="4" bordercolor="black" style="display:none">
+                <tr>
+                    <th>Uploaded By </th>
+                    <th>Village </th>
+                    <th>Well count</th>
+                </tr>
+                <tbody>
+                    {% for i in wellcount_group %}
+                <tr>
+                    <td>
+                        {{ i.name}}
+                    </td>
+                    <td>
+                        {{ i.village}}
+                    </td>
+                    <td>
+                        {{i.total}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+            <hr>
             <table class="table table-bordered">
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
+                        <th scope = "col">Uploaded By</th>
                         <th scope="col">Well Name</th>
                         <th scope="col">Date</th>
                         <th scope="col">Level (in meters)</th>
@@ -69,6 +95,7 @@
                     {% for well in welldata %}
                     <tr>
                         <th scope="row">{{well.id}}</th>
+                        <td>{{well.name}}</td>
                         <td>{{well.well_nm}}</td>
                         <td>{{well.date}}</td>
                         <td>{{well.level}}</td>
@@ -76,6 +103,9 @@
                     {% endfor %}
                 </tbody>
             </table>
+            
+            
+           
         </div>
 
     </div>
@@ -84,6 +114,12 @@
 
 </section>
 <script>
+    function toggleTable() {
+        // alert("called")
+        var lTable = document.getElementById("myContentHover");
+        lTable.style.display = (lTable.style.display == "table") ? "none" : "table";
+    }
+
     function search() {
         var input = document.querySelector('input[name="search"]');
         if (input.value) {
