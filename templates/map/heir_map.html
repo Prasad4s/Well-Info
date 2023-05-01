@@ -670,6 +670,7 @@ function defineWell(checkbox)
     console.log(state);
     console.log(value);
     var list = [];
+    var wellslayerGroup = L.layerGroup().addTo(mymap);
     
     if ($(checkbox).is(':checked')) {
         const cb = document.querySelector('#dbwells');
@@ -682,6 +683,22 @@ function defineWell(checkbox)
         var wellIcon = L.icon({
               iconUrl: "{% static 'map/images/well.png' %}",
               iconSize:     [30, 40], // size of the icon
+              //shadowSize:   [50, 64], // size of the shadow
+              iconAnchor:   [25,10], // point of the icon which will correspond to marker's location
+              // shadowAnchor: [4, 62],  // the same for the shadow
+              popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+          });
+          var wellIcon_small = L.icon({
+              iconUrl: "{% static 'map/images/well.png' %}",
+              iconSize:     [20, 30], // size of the icon
+              //shadowSize:   [50, 64], // size of the shadow
+              iconAnchor:   [25,10], // point of the icon which will correspond to marker's location
+              // shadowAnchor: [4, 62],  // the same for the shadow
+              popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+          });
+          var wellIcon_big = L.icon({
+              iconUrl: "{% static 'map/images/well.png' %}",
+              iconSize:     [40, 50], // size of the icon
               //shadowSize:   [50, 64], // size of the shadow
               iconAnchor:   [25,10], // point of the icon which will correspond to marker's location
               // shadowAnchor: [4, 62],  // the same for the shadow
@@ -764,20 +781,33 @@ function defineWell(checkbox)
           'maxWidth': '500',
           'className' : 'another-popup' // classname for another popup
         }
-           var markers = L.marker(["{{ i.lat }}", "{{ i.lng }}"], {icon:wellIcon}).bindPopup(table, popupOptions);
+        //    var markers = L.marker(["{{ i.lat }}", "{{ i.lng }}"], {icon:wellIcon}).bindPopup(table, popupOptions);
+        var markers = L.circleMarker(["{{ i.lat }}", "{{ i.lng }}"], {color: 'green',  fillColor: '#f03',  fillOpacity: 0.5, radius: 8}).bindPopup(table, popupOptions);
            wellslayerGroup.addLayer(markers).addTo(mymap);
-           list.push(wellslayerGroup); 
+        //    list.push(wellslayerGroup); 
+           mymap.on('zoomend', function() {
+            // alert("zoomenf called")
+            var zoomLevel = map.getZoom();
+            var newRadius = zoomLevel * 2; // adjust the radius based on the zoom level
+            markers.setRadius(newRadius); 
+        })
        
         {% endfor %}
        
     }
     else{
+        // alert("unchecked")
         // mymap.removeLayer(markers);
         const cb = document.getElementById("dbwells");
         console.log(cb.checked);
         // alert("checked staus in else",cb.checked);
-        mymap.removeLayer(wellslayerGroup);
-        
+        // mymap.removeLayer(wellslayerGroup);
+        wellslayerGroup.clearLayers();
+        // mymap.clearLayers();
+        wellslayerGroup.eachLayer(function(layer) {
+            // mymap.removeLayer(layer);
+            mymap.removeLayer(markers);
+        });
     }
    
       
